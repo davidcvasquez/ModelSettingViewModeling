@@ -105,17 +105,17 @@ private extension UIApplication {
 /// Color extensions to generate shades, tints, tones, and various harmonious colors.
 public extension Color {
     /// - Returns: A shade of the base color mixed with black by the given percentage.
-    public func shadeColor(percent: Double) -> Color {
+    func shadeColor(percent: Double) -> Color {
         self.mix(with: Color.black, by: percent)
     }
 
     /// - Returns: A tint of the base color mixed with white by the given percentage.
-    public func tintColor(percent: Double) -> Color {
+    func tintColor(percent: Double) -> Color {
         self.mix(with: Color.white, by: percent)
     }
 
     /// - Returns: A tone of the base color mixed with gray by the given percentage, optionally with a secondary tint or shade.
-    public func toneColor(
+    func toneColor(
         percent: Double,
         tintOrShade: Color? = nil,
         tintOrShadePercent: Double? = nil
@@ -128,7 +128,7 @@ public extension Color {
     }
 
     /// Various types of harmonious colors.
-    nonisolated public enum Harmony: CaseIterable {
+    nonisolated enum Harmony: CaseIterable {
         case complementary
         case splitComplementary
         case analogous
@@ -195,7 +195,7 @@ public extension Color {
     /// - Saturation and Lightness preserved
     /// - Alpha preserved
     /// - Returns: The harmony colors, including the base color placed in sequence.
-    public func harmony(_ scheme: Harmony) -> [Color]? {
+    func harmony(_ scheme: Harmony) -> [Color]? {
         guard let rgba = rgbaSRGBComponents() else { return nil }
         let (h, s, l) = rgbToHsl(r: rgba.r, g: rgba.g, b: rgba.b)
 
@@ -207,7 +207,7 @@ public extension Color {
     }
 
     /// - Returns: The rgba components of an sRGB or extended sRGB color, otherwise nil for other color spaces.
-    public func rgbaSRGBComponents() -> (r: Double, g: Double, b: Double, a: Double)? {
+    func rgbaSRGBComponents() -> (r: Double, g: Double, b: Double, a: Double)? {
         #if canImport(UIKit)
         let ui = UIColor(self)
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
@@ -228,7 +228,7 @@ public extension Color {
 
     /// - Returns: A complementary color calculated by rotating the hue 180° in HSB/HSV space.
     /// Returns nil if the color can’t be converted to HSB.
-    public func complementByHueRotation180() -> Color? {
+    func complementByHueRotation180() -> Color? {
         guard var hsba = toHSBA() else { return nil }
         hsba.hue = (hsba.hue + 0.5).truncatingRemainder(dividingBy: 1.0)
         return Color(hue: hsba.hue,
