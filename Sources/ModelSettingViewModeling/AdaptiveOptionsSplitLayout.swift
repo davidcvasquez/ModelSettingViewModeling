@@ -16,15 +16,31 @@ import NDGeometry
 /// - If proposedWidth/proposedHeight >= aspectThreshold => horizontal split
 /// - Else => vertical split
 /// - optionsFraction is the fraction of the main axis given to the options view (0.35 = 35%)
-struct AdaptiveOptionsSplitLayout: Layout {
-    var optionsFraction: CGFloat = 0.35
-    var isHorizontal: Bool = true
-    var aspectThreshold: CGFloat = 1.0          // 1.0 == wider-than-tall => horizontal
-    var dividerThickness: CGFloat = 1.0
-    var minimumOptionsMainAxis: CGFloat = 200   // optional safety clamp
-    var minimumMainMainAxis: CGFloat = 200      // optional safety clamp
+public struct AdaptiveOptionsSplitLayout: Layout {
+    var optionsFraction: CGFloat
+    var isHorizontal: Bool
+    var aspectThreshold: CGFloat          // 1.0 == wider-than-tall => horizontal
+    var dividerThickness: CGFloat
+    var minimumOptionsMainAxis: CGFloat   // optional safety clamp
+    var minimumMainMainAxis: CGFloat      // optional safety clamp
 
-    func sizeThatFits(
+    public init(
+        optionsFraction: CGFloat = 0.35,
+        isHorizontal: Bool = true,
+        aspectThreshold: CGFloat = 1.0,
+        dividerThickness: CGFloat = 1.0,
+        minimumOptionsMainAxis: CGFloat = 200,
+        minimumMainMainAxis: CGFloat = 200
+    ) {
+        self.optionsFraction = optionsFraction
+        self.isHorizontal = isHorizontal
+        self.aspectThreshold = aspectThreshold
+        self.dividerThickness = dividerThickness
+        self.minimumOptionsMainAxis = minimumOptionsMainAxis
+        self.minimumMainMainAxis = minimumMainMainAxis
+    }
+
+    public func sizeThatFits(
         proposal: ProposedViewSize,
         subviews: Subviews,
         cache: inout ()
@@ -41,7 +57,7 @@ struct AdaptiveOptionsSplitLayout: Layout {
         return CGSize(width: max(main.width, options.width), height: max(main.height, options.height))
     }
 
-    func placeSubviews(
+    public func placeSubviews(
         in bounds: CGRect,
         proposal: ProposedViewSize,
         subviews: Subviews,
