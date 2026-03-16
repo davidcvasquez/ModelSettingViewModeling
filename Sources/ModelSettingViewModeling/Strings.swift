@@ -13,13 +13,15 @@ import SwiftUI
 import LocalizableStringBundle
 
 public enum Strings {
+    @MainActor
     public static func install() throws {
         try LocalizedStringBundleInstaller.install(from: .module)
     }
 }
 
+@MainActor
 fileprivate func settingName(_ key: String) -> LocalizationKey {
-    LocalizationKey(key, bundle: .main, tableName: "ModelSettings")
+    LocalizationKey(key, bundle: .module, tableName: "ModelSettings")
 }
 
 public extension LocalizationKey {

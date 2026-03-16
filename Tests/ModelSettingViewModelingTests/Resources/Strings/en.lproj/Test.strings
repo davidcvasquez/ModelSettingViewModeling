@@ -2,9 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>test</key>
-    <string>Test</string>
-    <key>anotherTest</key>
-    <string>Another Test</string>
+    <key>testSettings</key>
+    <string>Test Settings</string>
+    <key>testSize</key>
+    <string>Size</string>
+    <key>testWidth</key>
+    <string>Width</string>
+    <key>testHeight</key>
+    <string>Height</string>
+    <key>testMaintainSizeRatio</key>
+    <string>Maintain Size Ratio</string>
+    <key>testSizeRatio</key>
+    <string>Size Ratio</string>
+    <key>testSizeFader</key>
+    <string>Size Fader</string>
+    <key>testRotation</key>
+    <string>Rotation</string>
+    <key>testShearX</key>
+    <string>Shear X</string>
+    <key>testShearY</key>
+    <string>Shear Y</string>
+    <key>testCount</key>
+    <string>Count</string>
 </dict>
 </plist>

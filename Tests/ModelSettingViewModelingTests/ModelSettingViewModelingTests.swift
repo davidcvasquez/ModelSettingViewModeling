@@ -12,14 +12,13 @@
 import XCTest
 import LocalizableStringBundle
 import ModelSettingViewModeling
+import ModelSettingsSupport
 
 final class ModelSettingViewModelingTests: XCTestCase {
     @MainActor
     func testInternalStringsInstaller() {
         do {
-            try LocalizableStringBundle.Strings.install()
-            try ModelSettingViewModeling.Strings.install()
-            try Strings.install()
+            try Self.installStrings()
         } catch {
             XCTFail("Failed to install Strings: \(error)")
         }
@@ -28,7 +27,7 @@ final class ModelSettingViewModelingTests: XCTestCase {
     @MainActor
     func testInternalStringLookups() {
         do {
-            try LocalizableStringBundle.Strings.install()
+            try Self.installStrings()
         } catch {
             XCTFail("Failed to install LocalizableStringBundle.Strings: \(error)")
         }
@@ -38,6 +37,57 @@ final class ModelSettingViewModelingTests: XCTestCase {
 
         let resetLabel = String(localized: LocalizationKey.resetLabel.resource)
         XCTAssertEqual(resetLabel, "Reset")
+    }
+
+    @MainActor
+    func testMakeViewModel() {
+        let layoutOptions = ModelSettingViewLayoutOptions()
+
+        do {
+            try Self.installStrings()
+        } catch {
+            XCTFail("Failed to install Strings: \(error)")
+        }
+        let localization = LocalizationRuntime()
+        let newDocument = Document.init()
+        let viewModels: ModelSettingViewModels = Self.buildViewModels(
+            document: newDocument, layoutOptions: layoutOptions)
+
+        XCTAssertTrue(viewModels.viewModels.count > 0)
+        guard let viewModel = viewModels.viewModels.values.first else {
+            XCTFail()
+            return
+        }
+        let modelSettingTypes = viewModel.modelSettingTypes
+        for type in modelSettingTypes.types.values {
+            Swift.print("type: \(type)")
+        }
+        XCTAssertGreaterThan(modelSettingTypes.types.count, 0)
+
+        XCTAssertEqual(viewModels.viewModels.count, 1)
+        XCTAssertEqual(localization.revision, 0)
+        XCTAssertFalse(LocalizationKey.supportBundles.isEmpty)
+    }
+
+    @MainActor
+    private static func installStrings() throws {
+        try LocalizableStringBundle.Strings.install()
+        try ModelSettingViewModeling.Strings.install()
+        try Strings.install()
+    }
+
+    @MainActor
+    private static func buildViewModels(
+        document: Document,
+        layoutOptions: ModelSettingViewLayoutOptions
+    ) -> ModelSettingViewModels {
+        ModelSettingViewModels(
+            viewModels: [
+            .testSettingsID: TestModelSettingViewModel(
+                containerCollection: document,
+                layoutOptions: layoutOptions)
+            ],
+            layoutOptions: layoutOptions)
     }
 }
 
@@ -49,14 +99,4 @@ public enum Strings {
             installName: "Test-Strings",
             overwriteExisting: true)
     }
-}
-
-@MainActor
-fileprivate func testName(_ key: String) -> LocalizationKey {
-    LocalizationKey(key, bundle: .module, tableName: "Test")
-}
-
-public extension LocalizationKey {
-    static let testLabel = testName("test")
-    static let anotherTestLabel = testName("anotherTest")
 }

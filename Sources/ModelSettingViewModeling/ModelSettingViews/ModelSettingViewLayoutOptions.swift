@@ -15,12 +15,18 @@ import LoggerCategories
 import OSLog
 
 /// Shared UI layout options that are not specialized by ViewModel types.
+@MainActor
 @Observable
 public class ModelSettingViewLayoutOptions {
     public init(reorderSettings: Bool = false, enableRenaming: Bool = true) {
         self.reorderSettings = reorderSettings
         self.enableRenaming = enableRenaming
     }
+
+    // Workaround for XCTest crash during deallocation.
+    // Reproduces when module is built with default isolation set to MainActor.
+    // https://github.com/swiftlang/swift/issues/87316
+    nonisolated deinit {}
 
     /// Whether settings are displayed for reordering, to enable drag-n-drop and visibility changes.
     public var reorderSettings: Bool
@@ -233,7 +239,7 @@ public class ModelSettingViewLayoutOptions {
     public var labelOptions: LabelOptions {
         get {
             // In case we load from prefs, manually register that this property was read
-            access(keyPath: \.labelOptions)
+           access(keyPath: \.labelOptions)
 
             switch layoutSize {
             case .compact:
@@ -292,6 +298,7 @@ public class ModelSettingViewLayoutOptions {
         set { Preferences.controls = newValue }
     }
     public var controlOptions: ControlOptions {
+
         get {
             // In case we load from prefs, manually register that this property was read
             access(keyPath: \.controlOptions)
@@ -461,6 +468,79 @@ public class ModelSettingViewLayoutOptions {
         EdgeInsets(top: self.showLabelText ? 19.0 : 0,
                    leading: 0, bottom: 0, trailing: 0)
     }
+
+//    private enum Preferences {
+//        static let defaults = UserDefaults.standard
+//
+//        static let layoutSizePrefKey = "com.ModelSettingViewLayoutOptions.layoutSize"
+//        static let labelOptionsPrefKey = "com.ModelSettingViewLayoutOptions.labelOptions"
+//        static let controlOptionsPrefKey = "com.ModelSettingViewLayoutOptions.controlOptions"
+//        static let stepperOptionsPrefKey = "com.ModelSettingViewLayoutOptions.stepperOptions"
+//
+//        #if os(macOS)
+//        static let defaultLayoutSize: LayoutSizeOptions = .custom
+//        static let defaultControl: ControlOptions = .showTextFieldWithControl
+//        static let defaultStepper: StepperOptions = .smallStepper
+//        #else
+//        static let defaultLayoutSize: LayoutSizeOptions = .compact
+//        static let defaultControl: ControlOptions = .showTextFieldWithPopupControl
+//        static let defaultStepper: StepperOptions = .noStepper
+//        #endif
+//
+//        static let defaultLabelOptions: LabelOptions = .showIconAndText
+//
+//        static var layoutSize: LayoutSizeOptions {
+//            get {
+//                guard let raw = defaults.string(forKey: layoutSizePrefKey),
+//                      let value = LayoutSizeOptions(rawValue: raw) else {
+//                    return defaultLayoutSize
+//                }
+//                return value
+//            }
+//            set {
+//                defaults.set(newValue.rawValue, forKey: layoutSizePrefKey)
+//            }
+//        }
+//
+//        static var labels: LabelOptions {
+//            get {
+//                guard let raw = defaults.string(forKey: labelOptionsPrefKey),
+//                      let value = LabelOptions(rawValue: raw) else {
+//                    return defaultLabelOptions
+//                }
+//                return value
+//            }
+//            set {
+//                defaults.set(newValue.rawValue, forKey: labelOptionsPrefKey)
+//            }
+//        }
+//
+//        static var controls: ControlOptions {
+//            get {
+//                guard let raw = defaults.string(forKey: controlOptionsPrefKey),
+//                      let value = ControlOptions(rawValue: raw) else {
+//                    return defaultControl
+//                }
+//                return value
+//            }
+//            set {
+//                defaults.set(newValue.rawValue, forKey: controlOptionsPrefKey)
+//            }
+//        }
+//
+//        static var steppers: StepperOptions {
+//            get {
+//                guard let raw = defaults.string(forKey: stepperOptionsPrefKey),
+//                      let value = StepperOptions(rawValue: raw) else {
+//                    return defaultStepper
+//                }
+//                return value
+//            }
+//            set {
+//                defaults.set(newValue.rawValue, forKey: stepperOptionsPrefKey)
+//            }
+//        }
+//    }
 
     struct Preferences {
 #if os(macOS)

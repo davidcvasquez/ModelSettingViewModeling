@@ -52,6 +52,9 @@ let package = Package(
             ],
             resources: [
                 .process("Resources/Strings")
+            ],
+            swiftSettings: [
+                .swiftLanguageMode(.v5)
             ]
         )
     ]
