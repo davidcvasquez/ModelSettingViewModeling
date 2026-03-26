@@ -13,13 +13,11 @@ import SwiftUI
 import NDGeometry
 import LocalizableStringBundle
 
-public struct IntegerTextFieldComponentView<
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct IntegerTextFieldComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
     @FocusState private var focused: Bool
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var integerProxy: Int
 
@@ -27,7 +25,7 @@ public struct IntegerTextFieldComponentView<
     @Binding public var isFocused: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         integerProxy: Binding<Int>,
         range: ClosedRange<Int>,
         labelText: LocalizationKey,

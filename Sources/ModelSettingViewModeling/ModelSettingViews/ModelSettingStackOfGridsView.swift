@@ -17,27 +17,22 @@ public struct ModelSettingStackOfGridsView: View {
 
     @State private var focusedID: ModelSetting.ID?
 
-    private let factory: ModelSettingGridViewFactory
-
     public init(
         viewModels: ModelSettingViewModels,
-        isTrackingInput: Binding<Bool>,
-        factory: ModelSettingGridViewFactory
+        isTrackingInput: Binding<Bool>
     ) {
         self._viewModels = Bindable(wrappedValue: viewModels)
         self._isTrackingInput = isTrackingInput
-        self.factory = factory
     }
 
     public var body: some View {
         ForEach(viewModels.viewModels.keys, id: \.self) { id in
-            if let view = factory.makeGridView(
-                for: id,
-                from: viewModels,
-                isTrackingInput: $isTrackingInput,
-                focusedID: $focusedID
-            ) {
-                view
+            if let viewModel = viewModels.viewModels[id] {
+                ModelSettingGridView(
+                    viewModel: AnyModelSettingViewModel(viewModel),
+                    isTrackingInput: $isTrackingInput,
+                    focusedID: $focusedID
+                )
             }
         }
 #if os(iOS)
@@ -51,13 +46,4 @@ public struct ModelSettingStackOfGridsView: View {
         }
 #endif
     }
-}
-
-public protocol ModelSettingGridViewFactory {
-    func makeGridView(
-        for id: ModelSetting.ID,
-        from store: ModelSettingViewModels,
-        isTrackingInput: Binding<Bool>,
-        focusedID: Binding<ModelSetting.ID?>
-    ) -> AnyView?
 }

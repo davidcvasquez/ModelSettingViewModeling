@@ -13,8 +13,8 @@ import SwiftUI
 import LocalizableStringBundle
 
 public struct FloatStepperComponentView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
+    Value: BinaryFloatingPoint /*,
+    ViewModel: ModelSettingViewModel */
 >: ViewModelComponentView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
@@ -22,14 +22,14 @@ public struct FloatStepperComponentView<
 {
     @Environment(\.isEnabled) private var isEnabled
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     @Binding private var floatProxy: Value
 
     @Binding public var isTrackingInput: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         floatProxy: Binding<Value>,
         range: ClosedRange<Value>,
         step: Value.Stride,

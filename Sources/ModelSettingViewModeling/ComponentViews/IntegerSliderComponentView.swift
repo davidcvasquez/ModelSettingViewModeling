@@ -13,19 +13,17 @@ import SwiftUI
 import NDGeometry
 import LocalizableStringBundle
 
-public struct IntegerSliderComponentView<
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct IntegerSliderComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var integerValue: Int
 
     @Binding public var isTrackingInput: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         integerValue: Binding<Int>,
         range: ClosedRange<Int>,
         labelText: LocalizationKey,
@@ -82,19 +80,17 @@ public struct IntegerSliderComponentView<
     }
 }
 
-public struct PopoverIntegerSliderComponentView<
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct PopoverIntegerSliderComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var integerValue: Int
 
     @Binding public var isTrackingInput: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         integerValue: Binding<Int>,
         range: ClosedRange<Int>,
         labelText: LocalizationKey,

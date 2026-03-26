@@ -15,14 +15,14 @@ import NDGeometry
 import OSLog
 import LocalizableStringBundle
 
-public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, Identifiable {
+public struct ModelSettingGridRowView: View, Identifiable {
     @Environment(\.isEnabled) private var isEnabled
 
     public let id: String       // This ID is only for the SwiftUI view identity.
 
     public let modelSettingID: ModelSetting.ID
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     @Binding public var isTrackingInput: Bool
     @Binding public var focusedID: ModelSetting.ID?
@@ -176,7 +176,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .float(_):
-                FloatModelSettingView<Double, ViewModel>(
+                FloatModelSettingView<Double>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -188,7 +188,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .ndFloat(_):
-                FloatModelSettingView<NDFloat, ViewModel>(
+                FloatModelSettingView<NDFloat>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -200,7 +200,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .cgFloat(_):
-                FloatModelSettingView<CGFloat, ViewModel>(
+                FloatModelSettingView<CGFloat>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -212,7 +212,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .ndPoint(_):
-                PointModelSettingView<NDFloat, ViewModel>(
+                PointModelSettingView<NDFloat>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -221,7 +221,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .cgPoint(_):
-                PointModelSettingView<CGFloat, ViewModel>(
+                PointModelSettingView<CGFloat>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -230,7 +230,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .ndSize(_):
-                SizeModelSettingView<NDFloat, ViewModel>(
+                SizeModelSettingView<NDFloat>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -239,7 +239,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .cgSize(_):
-                SizeModelSettingView<CGFloat, ViewModel>(
+                SizeModelSettingView<CGFloat>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -248,7 +248,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .ndAngle(_):
-                AngleModelSettingView<NDAngle, ViewModel>(
+                AngleModelSettingView<NDAngle>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,
@@ -260,7 +260,7 @@ public struct ModelSettingGridRowView<ViewModel: ModelSettingViewModel>: View, I
                 .environment(\.isEnabled, isEnabled && isVisible)
 
             case .angle(_):
-                AngleModelSettingView<Angle, ViewModel>(
+                AngleModelSettingView<Angle>(
                     id: self.modelSettingID,
                     viewModel: viewModel,
                     isTrackingInput: $isTrackingInput,

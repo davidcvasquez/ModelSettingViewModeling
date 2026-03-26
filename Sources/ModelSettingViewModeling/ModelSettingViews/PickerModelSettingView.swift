@@ -20,12 +20,12 @@ public struct IconAndName: Equatable, Codable {
     let key: LocalizationKey
 }
 
-public struct PickerModelSettingView<ViewModel: ModelSettingViewModel>: ModelSettingView {
+public struct PickerModelSettingView: ModelSettingView {
     @Environment(\.isEnabled) private var isEnabled
 
     public let id: DocumentSetting.ID
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
         self.intModelSetting

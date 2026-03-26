@@ -14,10 +14,7 @@ import NDGeometry
 import CompactUUID
 import LocalizableStringBundle
 
-public struct AngleModelSettingView<
-    MoA: AnyAngle,
-    ViewModel: ModelSettingViewModel
->: ModelSettingView
+public struct AngleModelSettingView<MoA: AnyAngle>: ModelSettingView
     where MoA: Strideable & Comparable & Codable & Sendable,
           MoA.Stride: Codable & Sendable
 {
@@ -29,7 +26,7 @@ public struct AngleModelSettingView<
 
     public let id: ModelSettingView.ID
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
         self.angleModelSetting

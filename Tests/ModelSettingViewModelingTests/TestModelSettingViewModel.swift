@@ -105,12 +105,12 @@ public final class TestModelSettingViewModel: ModelSettingViewModel {
 #Preview("TestModelSettingViewModel") {
     @Previewable @State var layoutOptions = ModelSettingViewLayoutOptions()
     ModelSettingViewLayoutOptionsPreview(layoutOptions: layoutOptions) {
-        var isTrackingInput: Binding<Bool> = .constant(false)
-        var focusedID: Binding<ModelSetting.ID?> = .constant(nil)
+        let isTrackingInput: Binding<Bool> = .constant(false)
+        let focusedID: Binding<ModelSetting.ID?> = .constant(nil)
         ModelSettingGridView(
-            viewModel: TestModelSettingViewModel(
+            viewModel: AnyModelSettingViewModel(TestModelSettingViewModel(
                 containerCollection: Document(),
-                layoutOptions: layoutOptions),
+                layoutOptions: layoutOptions)),
             isTrackingInput: isTrackingInput,
             focusedID: focusedID
         )

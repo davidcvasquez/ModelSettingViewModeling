@@ -14,12 +14,10 @@ import CompactUUID
 import NDGeometry
 import LocalizableStringBundle
 
-public struct IconComponentView<
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct IconComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding public var labelIcon: IconName?
     @Binding public var labelText: LocalizationKey?
@@ -29,7 +27,7 @@ public struct IconComponentView<
     let iconSize: CGFloat = 24
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         labelIcon: Binding<IconName?>,
         labelText: Binding<LocalizationKey?>,
         isTrackingInput: Binding<Bool>

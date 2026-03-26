@@ -16,10 +16,7 @@ import LocalizableStringBundle
 import UIKit
 #endif
 
-public struct FloatModelSettingView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
->: ModelSettingView
+public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
           Value.Stride: Codable {
@@ -30,7 +27,7 @@ public struct FloatModelSettingView<
 
     public let id: ModelSetting.ID
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
         self.floatModelSetting
@@ -85,7 +82,7 @@ public struct FloatModelSettingView<
             )
 
             if layoutOptions.showControls {
-                FloatSliderComponentView<Value, ViewModel>(
+                FloatSliderComponentView<Value>(
                     viewModel: viewModel,
                     floatProxy: $floatProxy,
                     range: range,
@@ -107,7 +104,7 @@ public struct FloatModelSettingView<
                 HStack {
                     switch self.specialPresentation {
                     case .native, .decimal:
-                        DecimalTextFieldComponentView<Value, ViewModel>(
+                        DecimalTextFieldComponentView<Value>(
                             viewModel: viewModel,
                             floatProxy: $floatProxy,
                             range: self.range,
@@ -120,7 +117,7 @@ public struct FloatModelSettingView<
                         }
 
                     case .percent:
-                        PercentTextFieldComponentView<Value, ViewModel>(
+                        PercentTextFieldComponentView<Value>(
                             viewModel: viewModel,
                             floatProxy: $floatProxy,
                             range: self.range,
@@ -186,7 +183,7 @@ public struct FloatModelSettingView<
             }
 
             if layoutOptions.showSteppers {
-                FloatStepperComponentView<Value, ViewModel>(
+                FloatStepperComponentView<Value>(
                     viewModel: viewModel,
                     floatProxy: $floatProxy,
                     range: range,

@@ -18,10 +18,7 @@ import OSLog
 import UIKit
 #endif
 
-public struct SizeModelSettingView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
->: ModelSettingView
+public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
           Value.Stride: Codable {
@@ -34,7 +31,7 @@ public struct SizeModelSettingView<
 
     public let id: ModelSetting.ID
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
          self.sizeModelSetting
@@ -272,7 +269,7 @@ public struct SizeModelSettingView<
                 )
 
                 if layoutOptions.showControls {
-                    FloatSliderComponentView<Value, ViewModel>(
+                    FloatSliderComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $widthFloatProxy,
                         range: range,
@@ -294,7 +291,7 @@ public struct SizeModelSettingView<
                     HStack {
                         switch self.specialPresentation {
                         case .native, .linkedDecimal:
-                            DecimalTextFieldComponentView<Value, ViewModel>(
+                            DecimalTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $widthFloatProxy,
                                 range: self.range,
@@ -314,7 +311,7 @@ public struct SizeModelSettingView<
                             }
 
                         case .linkedPercent:
-                            PercentTextFieldComponentView<Value, ViewModel>(
+                            PercentTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $widthFloatProxy,
                                 range: self.range,
@@ -388,7 +385,7 @@ public struct SizeModelSettingView<
                 }
                 
                 if layoutOptions.showSteppers {
-                    FloatStepperComponentView<Value, ViewModel>(
+                    FloatStepperComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $widthFloatProxy,
                         range: range,
@@ -423,7 +420,7 @@ public struct SizeModelSettingView<
                 )
 
                 if layoutOptions.showControls {
-                    FloatSliderComponentView<Value, ViewModel>(
+                    FloatSliderComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $heightFloatProxy,
                         range: range,
@@ -445,7 +442,7 @@ public struct SizeModelSettingView<
                     HStack {
                         switch self.specialPresentation {
                         case .native, .linkedDecimal:
-                            DecimalTextFieldComponentView<Value, ViewModel>(
+                            DecimalTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $heightFloatProxy,
                                 range: self.range,
@@ -465,7 +462,7 @@ public struct SizeModelSettingView<
                             }
 
                         case .linkedPercent:
-                            PercentTextFieldComponentView<Value, ViewModel>(
+                            PercentTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $heightFloatProxy,
                                 range: self.range,
@@ -539,7 +536,7 @@ public struct SizeModelSettingView<
                 }
 
                 if layoutOptions.showSteppers {
-                    FloatStepperComponentView<Value, ViewModel>(
+                    FloatStepperComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $heightFloatProxy,
                         range: range,

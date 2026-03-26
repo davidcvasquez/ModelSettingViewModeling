@@ -15,11 +15,11 @@ import OrderedCollections
 import LocalizableStringBundle
 
 /// A SwiftUI Grid View of a collection of ModelSettingView subviews, coordinated by a ViewModel type.
-public struct ModelSettingGridView<ViewModel: ModelSettingViewModel>: View {
+public struct ModelSettingGridView: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(LocalizationRuntime.self) private var localization
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     @Binding public var isTrackingInput: Bool
     @Binding public var focusedID: ModelSetting.ID?
@@ -28,7 +28,7 @@ public struct ModelSettingGridView<ViewModel: ModelSettingViewModel>: View {
     @State private var glow = true
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         isTrackingInput: Binding<Bool>,
         focusedID: Binding<ModelSetting.ID?>
     ) {

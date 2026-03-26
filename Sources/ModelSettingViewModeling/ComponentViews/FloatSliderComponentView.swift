@@ -14,8 +14,8 @@ import NDGeometry
 import LocalizableStringBundle
 
 public struct FloatSliderComponentView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
+    Value: BinaryFloatingPoint /*,
+    ViewModel: ModelSettingViewModel */
 >: ViewModelComponentView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
@@ -24,14 +24,14 @@ public struct FloatSliderComponentView<
     @Environment(\.isEnabled) private var isEnabled
     @Environment(LocalizationRuntime.self) private var localization
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var floatProxy: Value
 
     @Binding public var isTrackingInput: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         floatProxy: Binding<Value>,
         range: ClosedRange<Value>,
         step: Value.Stride,
@@ -74,8 +74,8 @@ public struct FloatSliderComponentView<
 }
 
 public struct PopoverFloatSliderComponentView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
+    Value: BinaryFloatingPoint /*,
+    ViewModel: ModelSettingViewModel */
 >: ViewModelComponentView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
@@ -84,14 +84,14 @@ public struct PopoverFloatSliderComponentView<
     @Environment(\.isEnabled) private var isEnabled
     @Environment(LocalizationRuntime.self) private var localization
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var floatProxy: Value
 
     @Binding public var isTrackingInput: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         floatProxy: Binding<Value>,
         range: ClosedRange<Value>,
         step: Value.Stride,

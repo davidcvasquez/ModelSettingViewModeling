@@ -12,19 +12,17 @@
 import SwiftUI
 import LocalizableStringBundle
 
-public struct IntegerStepperComponentView<
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct IntegerStepperComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var integerProxy: Int
 
     @Binding public var isTrackingInput: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         integerProxy: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int.Stride,

@@ -12,11 +12,11 @@
 import SwiftUI
 import LocalizableStringBundle
 
-public struct RenamableLabelTextComponentView<ViewModel: ModelSettingViewModel>: ViewModelComponentView {
+public struct RenamableLabelTextComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(LocalizationRuntime.self) private var localization
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
     @Binding public var isTrackingInput: Bool
 
     public var labelText: LocalizationKey

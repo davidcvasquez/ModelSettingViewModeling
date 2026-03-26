@@ -44,18 +44,15 @@ public enum PackageShaders {
 }
 
 /// Displays a measure of angle value using an angular wedge on top of a circular background, and a grabber to adjust the value.
-public struct AngleComponentView<
-    MoA: AnyAngle,
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct AngleComponentView<MoA: AnyAngle>: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(LocalizationRuntime.self) private var localization
     @Environment(\.isPreview) private var isPreview
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         isPopover: Bool = false,
         labelText: LocalizationKey,
         value: Binding<MoA>,

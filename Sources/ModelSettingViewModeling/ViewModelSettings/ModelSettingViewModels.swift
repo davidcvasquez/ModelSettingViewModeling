@@ -11,6 +11,8 @@
 
 import Foundation
 import OrderedCollections
+import LocalizableStringBundle
+import Observation
 
 /// A collection of view models for model settings.
 @Observable
@@ -25,11 +27,6 @@ public final class ModelSettingViewModels {
         self.viewModels = viewModels
         self.layoutOptions = layoutOptions
     }
-
-    // Workaround for XCTest crash during deallocation.
-    // Reproduces when module is built with default isolation set to MainActor.
-    // https://github.com/swiftlang/swift/issues/87316
-    nonisolated deinit {}
 }
 
 public typealias ModelSettingViewModelMap =
@@ -87,4 +84,81 @@ public protocol ModelSettingViewModel: AnyObject, Identifiable, Observable {
     var modelSettingTypes: ModelSettingTypes { get }
 
     var layoutOptions: ModelSettingViewLayoutOptions { get }
+}
+
+/// An observable concrete class wrapper for ModelSettingViewModel, that enables abstraction of generic typing for most of the UI.
+@Observable
+public final class AnyModelSettingViewModel: Identifiable {
+    public let id: ModelSetting.ID
+
+    public var revision: UInt {
+        get { _getRevision() }
+        set { _setRevision(newValue) }
+    }
+
+    public var modelSettingActions: ModelSettingActions {
+        get { _getModelSettingActions() }
+        set { _setModelSettingActions(newValue) }
+    }
+
+    public var modelSettingViewStyles: ModelSettingViewStyles {
+        get { _getModelSettingViewStyles() }
+        set { _setModelSettingViewStyles(newValue) }
+    }
+
+    public var modelSettingTypes: ModelSettingTypes {
+        _getModelSettingTypes()
+    }
+
+    public var layoutOptions: ModelSettingViewLayoutOptions {
+        _getLayoutOptions()
+    }
+
+    public var containerCollection: any ModelSettingContainerCollection {
+        _getContainerCollection()
+    }
+
+    public func startObservingRevisions() {
+        _startObservingRevisions()
+    }
+
+    public func resetViewStyles() {
+        _resetViewStyles()
+    }
+
+    private let _getRevision: () -> UInt
+    private let _setRevision: (UInt) -> Void
+
+    private let _getModelSettingActions: () -> ModelSettingActions
+    private let _setModelSettingActions: (ModelSettingActions) -> Void
+
+    private let _getModelSettingViewStyles: () -> ModelSettingViewStyles
+    private let _setModelSettingViewStyles: (ModelSettingViewStyles) -> Void
+
+    private let _getModelSettingTypes: () -> ModelSettingTypes
+    private let _getLayoutOptions: () -> ModelSettingViewLayoutOptions
+    private let _getContainerCollection: () -> any ModelSettingContainerCollection
+
+    private let _startObservingRevisions: () -> Void
+    private let _resetViewStyles: () -> Void
+
+    public init<VM: ModelSettingViewModel>(_ base: VM) {
+        self.id = base.id
+
+        _getRevision = { base.revision }
+        _setRevision = { base.revision = $0 }
+
+        _getModelSettingActions = { base.modelSettingActions }
+        _setModelSettingActions = { base.modelSettingActions = $0 }
+
+        _getModelSettingViewStyles = { base.modelSettingViewStyles }
+        _setModelSettingViewStyles = { base.modelSettingViewStyles = $0 }
+
+        _getModelSettingTypes = { base.modelSettingTypes }
+        _getLayoutOptions = { base.layoutOptions }
+        _getContainerCollection = { base.containerCollection }
+
+        _startObservingRevisions = { base.startObservingRevisions() }
+        _resetViewStyles = { base.resetViewStyles() }
+    }
 }

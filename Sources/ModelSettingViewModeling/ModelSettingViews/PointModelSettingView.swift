@@ -16,10 +16,7 @@ import LocalizableStringBundle
 import UIKit
 #endif
 
-public struct PointModelSettingView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
->: ModelSettingView
+public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
           Value.Stride: Codable {
@@ -32,7 +29,7 @@ public struct PointModelSettingView<
 
     public let id: ModelSetting.ID
 
-    @Bindable public var viewModel: ViewModel
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
         self.pointModelSetting
@@ -245,7 +242,7 @@ public struct PointModelSettingView<
                 )
 
                 if layoutOptions.showControls {
-                    FloatSliderComponentView<Value, ViewModel>(
+                    FloatSliderComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $xFloatProxy,
                         range: range,
@@ -267,7 +264,7 @@ public struct PointModelSettingView<
                     HStack {
                         switch self.specialPresentation {
                         case .native, .linkedDecimal:
-                            DecimalTextFieldComponentView<Value, ViewModel>(
+                            DecimalTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $xFloatProxy,
                                 range: self.range,
@@ -287,7 +284,7 @@ public struct PointModelSettingView<
                             }
 
                         case .linkedPercent:
-                            PercentTextFieldComponentView<Value, ViewModel>(
+                            PercentTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $xFloatProxy,
                                 range: self.range,
@@ -361,7 +358,7 @@ public struct PointModelSettingView<
                 }
 
                 if layoutOptions.showSteppers {
-                    FloatStepperComponentView<Value, ViewModel>(
+                    FloatStepperComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $xFloatProxy,
                         range: range,
@@ -384,7 +381,7 @@ public struct PointModelSettingView<
                 )
 
                 if layoutOptions.showControls {
-                    FloatSliderComponentView<Value, ViewModel>(
+                    FloatSliderComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $yFloatProxy,
                         range: range,
@@ -406,7 +403,7 @@ public struct PointModelSettingView<
                     HStack {
                         switch self.specialPresentation {
                         case .native, .linkedDecimal:
-                            DecimalTextFieldComponentView<Value, ViewModel>(
+                            DecimalTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $yFloatProxy,
                                 range: self.range,
@@ -426,7 +423,7 @@ public struct PointModelSettingView<
                             }
 
                         case .linkedPercent:
-                            PercentTextFieldComponentView<Value, ViewModel>(
+                            PercentTextFieldComponentView<Value>(
                                 viewModel: viewModel,
                                 floatProxy: $yFloatProxy,
                                 range: self.range,
@@ -500,7 +497,7 @@ public struct PointModelSettingView<
                 }
 
                 if layoutOptions.showSteppers {
-                    FloatStepperComponentView<Value, ViewModel>(
+                    FloatStepperComponentView<Value>(
                         viewModel: viewModel,
                         floatProxy: $yFloatProxy,
                         range: range,

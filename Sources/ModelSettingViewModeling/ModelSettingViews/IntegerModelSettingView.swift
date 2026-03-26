@@ -13,7 +13,7 @@ import SwiftUI
 import NDGeometry
 import LocalizableStringBundle
 
-public struct IntegerModelSettingView<ViewModel: ModelSettingViewModel>: ModelSettingView {
+public struct IntegerModelSettingView: ModelSettingView {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(LocalizationRuntime.self) private var localization
     @Environment(\.colorScheme) var colorScheme
@@ -22,8 +22,7 @@ public struct IntegerModelSettingView<ViewModel: ModelSettingViewModel>: ModelSe
 
     public let id: ModelSetting.ID
 
-    @Bindable public var viewModel: ViewModel
-
+    @Bindable public var viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
         self.intModelSetting

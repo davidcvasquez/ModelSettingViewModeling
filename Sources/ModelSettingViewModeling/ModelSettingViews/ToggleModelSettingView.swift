@@ -12,12 +12,12 @@
 import SwiftUI
 import CompactUUID
 
-public struct ToggleModelSettingView<ViewModel: ModelSettingViewModel>: ModelSettingView {
+public struct ToggleModelSettingView: ModelSettingView {
     @Environment(\.isEnabled) private var isEnabled
 
     public let id: ModelSetting.ID
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     public var viewModelSetting: (any ViewModelSetting)? {
         self.boolModelSetting

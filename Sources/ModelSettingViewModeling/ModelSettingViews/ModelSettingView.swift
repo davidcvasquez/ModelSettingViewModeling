@@ -14,9 +14,7 @@ import CompactUUID
 import LocalizableStringBundle
 
 public protocol ViewModelComponentView: View {
-    associatedtype ViewModel: ModelSettingViewModel
-
-    var viewModel: ViewModel { get }
+    var viewModel: AnyModelSettingViewModel { get }
 
     var isTrackingInput: Bool { get }
 }
@@ -29,13 +27,11 @@ public extension ViewModelComponentView {
 
 /// A SwiftUI view of a ModelSetting, bound to a ViewModel type that manages type, actions, and presentation style.
 public protocol ModelSettingView: View {
-    associatedtype ViewModel: ModelSettingViewModel
-
     /// For live updates, use the @Bindable property wrapper in the conforming type:
     /// ```
-    /// @Bindable public var viewModel: ViewModel
+    /// @Bindable public var viewModel: AnyModelSettingViewModel
     /// ```
-    var viewModel: ViewModel { get }
+    var viewModel: AnyModelSettingViewModel { get }
 
     typealias ID = UUIDBase58
     var id: ID { get }

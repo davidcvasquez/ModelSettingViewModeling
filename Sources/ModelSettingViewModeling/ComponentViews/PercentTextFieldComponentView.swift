@@ -14,8 +14,8 @@ import NDGeometry
 import LocalizableStringBundle
 
 public struct PercentTextFieldComponentView<
-    Value: BinaryFloatingPoint,
-    ViewModel: ModelSettingViewModel
+    Value: BinaryFloatingPoint /*,
+    ViewModel: ModelSettingViewModel */
 >: ViewModelComponentView
     where Value.Stride: BinaryFloatingPoint,
           Value: Codable,
@@ -24,7 +24,7 @@ public struct PercentTextFieldComponentView<
     @Environment(\.isEnabled) private var isEnabled
     @FocusState private var focused: Bool
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding private var floatProxy: Value
 
@@ -32,7 +32,7 @@ public struct PercentTextFieldComponentView<
     @Binding public var isFocused: Bool
 
     public init(
-        viewModel: ViewModel,
+        viewModel: AnyModelSettingViewModel,
         floatProxy: Binding<Value>,
         range: ClosedRange<Value>,
         precision: RoundingPrecision,

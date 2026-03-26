@@ -12,12 +12,10 @@
 import SwiftUI
 import LocalizableStringBundle
 
-public struct IconButtonToggleComponentView<
-    ViewModel: ModelSettingViewModel
->: ViewModelComponentView {
+public struct IconButtonToggleComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
 
-    public let viewModel: ViewModel
+    public let viewModel: AnyModelSettingViewModel
 
     @Binding public var isOn: Bool
     public let iconName: IconName
