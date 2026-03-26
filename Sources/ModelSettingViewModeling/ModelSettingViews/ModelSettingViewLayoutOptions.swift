@@ -22,6 +22,11 @@ public class ModelSettingViewLayoutOptions {
         self.enableRenaming = enableRenaming
     }
 
+    // Workaround for XCTest crash during deallocation.
+    // Reproduces when module is built with default isolation set to MainActor.
+    // https://github.com/swiftlang/swift/issues/87316
+    nonisolated deinit {}
+
     /// Whether settings are displayed for reordering, to enable drag-n-drop and visibility changes.
     public var reorderSettings: Bool
     public var enableRenaming: Bool
