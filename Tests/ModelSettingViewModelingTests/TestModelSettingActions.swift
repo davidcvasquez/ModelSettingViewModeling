@@ -14,6 +14,7 @@ import NDGeometry
 import LocalizableStringBundle
 import ModelSettingViewModeling
 
+@MainActor
 struct TestModelSettingActions {
     static var actions = ModelSettingActions(
         id: .testSettingsID,
@@ -112,20 +113,17 @@ public extension LocalizationKey {
     static let testShearXLabel = testName("testShearX")
     static let testShearYLabel = testName("testShearY")
     static let testCountLabel = testName("testCount")
+
+    static var testModelSettingAction = testName("testModelSettingAction")
+    static var testSizeAction = testName("testSizeAction")
+    static var testWidthAction = testName("testWidthAction")
+    static var testHeightAction = testName("testHeightAction")
+    static var maintainAspectRatioAction = testName("maintainAspectRatioAction")
+    static var sizeRatioAction = testName("sizeRatioAction")
+
+    static var testSizeFaderAction = testName("testSizeFaderAction")
+    static var testRotationAction = testName("testRotationAction")
+    static var testShearXAction = testName("testShearXAction")
+    static var testShearYAction = testName("testShearYAction")
+    static var testCountAction = testName("testCountAction")
 }
-
-public extension LocalizedKey {
-    static var testModelSettingAction = LocalizedKey("testModelSettingAction")
-    static var testSizeAction = LocalizedKey("testSizeAction")
-    static var testWidthAction = LocalizedKey("testWidthAction")
-    static var testHeightAction = LocalizedKey("testHeightAction")
-    static var maintainAspectRatioAction = LocalizedKey("maintainAspectRatioAction")
-    static var sizeRatioAction = LocalizedKey("sizeRatioAction")
-
-    static var testSizeFaderAction = LocalizedKey("testSizeFaderAction")
-    static var testRotationAction = LocalizedKey("testRotationAction")
-    static var testShearXAction = LocalizedKey("testShearXAction")
-    static var testShearYAction = LocalizedKey("testShearYAction")
-    static var testCountAction = LocalizedKey("testCountAction")
-}
-

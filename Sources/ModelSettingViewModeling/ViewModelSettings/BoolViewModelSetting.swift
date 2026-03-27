@@ -10,7 +10,9 @@
 //===----------------------------------------------------------------------===//
 
 import SwiftUI
+import LocalizableStringBundle
 
+/// A live runtime setting that manages boolean bindings for committing and tracking actions with the model.
 public struct BoolViewModelSetting: ViewModelSetting {
     public typealias ActionType = BoolModelSettingAction
     public var action: ActionType
@@ -23,10 +25,11 @@ public struct BoolViewModelSetting: ViewModelSetting {
     }
 }
 
-public struct BoolModelSettingAction: ModelSettingAction {
-    public var actionName: LocalizedKey
+@MainActor
+public struct BoolModelSettingAction: @MainActor ModelSettingAction {
+    public var actionName: LocalizationKey
 
-    public init(actionName: LocalizedKey) {
+    public init(actionName: LocalizationKey) {
         self.actionName = actionName
     }
 }

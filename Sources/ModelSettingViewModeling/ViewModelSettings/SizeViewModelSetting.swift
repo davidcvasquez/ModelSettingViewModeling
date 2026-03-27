@@ -11,6 +11,7 @@
 
 import SwiftUI
 import NDGeometry
+import LocalizableStringBundle
 
 public struct SizeViewModelSetting<Value: BinaryFloatingPoint>: ViewModelSetting
     where Value: Codable, Value.Stride: Codable {
@@ -36,19 +37,19 @@ public struct SizeViewModelSetting<Value: BinaryFloatingPoint>: ViewModelSetting
     public var sizeRatioSetting: FloatViewModelSetting<Value>
 }
 
-nonisolated public struct SizeModelSettingAction<Value: BinaryFloatingPoint>: ModelSettingAction
+public struct SizeModelSettingAction<Value: BinaryFloatingPoint>: ModelSettingAction
     where Value: Codable & Sendable, Value.Stride: Codable & Sendable {
 
     public init(
-        actionName: LocalizedKey,
+        actionName: LocalizationKey,
         widthSettingID: ModelSetting.ID,
-        widthActionName: LocalizedKey,
+        widthActionName: LocalizationKey,
         heightSettingID: ModelSetting.ID,
-        heightActionName: LocalizedKey,
+        heightActionName: LocalizationKey,
         maintainSizeRatioSettingID: ModelSetting.ID,
-        maintainSizeRatioActionName: LocalizedKey,
+        maintainSizeRatioActionName: LocalizationKey,
         sizeRatioSettingID: ModelSetting.ID,
-        sizeRatioActionName: LocalizedKey,
+        sizeRatioActionName: LocalizationKey,
         range: ClosedRange<Value>,
         step: Value.Stride,
         precision: RoundingPrecision
@@ -67,19 +68,19 @@ nonisolated public struct SizeModelSettingAction<Value: BinaryFloatingPoint>: Mo
         self.precision = precision
     }
 
-    public var actionName: LocalizedKey
+    public var actionName: LocalizationKey
 
     public var widthSettingID: ModelSetting.ID
-    public var widthActionName: LocalizedKey
+    public var widthActionName: LocalizationKey
 
     public var heightSettingID: ModelSetting.ID
-    public var heightActionName: LocalizedKey
+    public var heightActionName: LocalizationKey
 
     public var maintainSizeRatioSettingID: ModelSetting.ID
-    public var maintainSizeRatioActionName: LocalizedKey
+    public var maintainSizeRatioActionName: LocalizationKey
 
     public var sizeRatioSettingID: ModelSetting.ID
-    public var sizeRatioActionName: LocalizedKey
+    public var sizeRatioActionName: LocalizationKey
 
     public var range: ClosedRange<Value>
     public var step: Value.Stride

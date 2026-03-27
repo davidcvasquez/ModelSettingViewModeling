@@ -13,6 +13,7 @@ import SwiftUI
 import NDGeometry
 import ModelSettingsSupport
 import ModelSettingViewModeling
+import LocalizableStringBundle
 
 extension Document: ModelSettingContainerCollection {
 
@@ -439,7 +440,7 @@ extension Document: ModelSettingContainerCollection {
     public func makeBindings<SettingContext, T: Equatable>(
         _ keyPath: WritableKeyPath<SettingContext, T>,
         dependency: ModelSettingDependency<SettingContext>?,
-        actionName: LocalizedStringKey
+        actionName: LocalizationKey
     ) -> (committed: Binding<T?>, tracking: Binding<T?>) {
         makeMandalaBindings(
             keyPath,
@@ -452,7 +453,7 @@ extension Document: ModelSettingContainerCollection {
     private func makeMandalaBindings<SettingContext, T: Equatable>(
         _ keyPath: WritableKeyPath<SettingContext, T>,
         dependency: ModelSettingDependency<Context>?,
-        actionName: LocalizedStringKey
+        actionName: LocalizationKey
     ) -> (committed: Binding<T?>, tracking: Binding<T?>) {
 
         guard let _keyPath = keyPath as? WritableKeyPath<MandalaLayerContext, T> else {
@@ -537,7 +538,7 @@ extension Document: ModelSettingContainerCollection {
     public func makeCommitBinding<SettingContext, T: Equatable>(
         _ keyPath: WritableKeyPath<SettingContext, T>,
         dependency: ModelSettingDependency<SettingContext>?,
-        actionName: LocalizedStringKey
+        actionName: LocalizationKey
     ) -> Binding<T?> {
         makeMandalaCommitBinding(
             keyPath,
@@ -550,7 +551,7 @@ extension Document: ModelSettingContainerCollection {
     private func makeMandalaCommitBinding<SettingContext, T: Equatable>(
         _ keyPath: WritableKeyPath<SettingContext, T>,
         dependency: ModelSettingDependency<Context>?,
-        actionName: LocalizedStringKey
+        actionName: LocalizationKey
     ) -> Binding<T?> {
 
         guard let _keyPath = keyPath as? WritableKeyPath<MandalaLayerContext, T> else {

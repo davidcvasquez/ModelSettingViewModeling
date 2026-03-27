@@ -12,8 +12,9 @@
 import SwiftUI
 import Foundation
 import NDGeometry
+import LocalizableStringBundle
 
-@MainActor
+/// A live runtime setting that manages floating-point bindings for committing and tracking actions with the model.
 public struct FloatViewModelSetting<Value: BinaryFloatingPoint>: ViewModelSetting
     where Value: Codable, Value.Stride: Codable {
 
@@ -30,11 +31,12 @@ public struct FloatViewModelSetting<Value: BinaryFloatingPoint>: ViewModelSettin
     public var trackingValue: Binding<Value?>
 }
 
-nonisolated public struct FloatModelSettingAction<Value: BinaryFloatingPoint>: ModelSettingAction
-    where Value: Codable & Sendable, Value.Stride: Codable & Sendable {
+@MainActor
+public struct FloatModelSettingAction<Value: BinaryFloatingPoint>: @MainActor ModelSettingAction
+    where Value: Codable, Value.Stride: Codable {
 
     public init(
-        actionName: LocalizedKey,
+        actionName: LocalizationKey,
         range: ClosedRange<Value>,
         step: Value.Stride,
         precision: RoundingPrecision
@@ -45,7 +47,7 @@ nonisolated public struct FloatModelSettingAction<Value: BinaryFloatingPoint>: M
         self.precision = precision
     }
 
-    public var actionName: LocalizedKey
+    public var actionName: LocalizationKey
     public var range: ClosedRange<Value>
     public var step: Value.Stride
 

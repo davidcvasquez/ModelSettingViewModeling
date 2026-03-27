@@ -13,10 +13,12 @@ import Foundation
 import NDGeometry
 import OrderedCollections
 import SwiftUI
+import LocalizableStringBundle
 
 /// An ordered collection of Codable configurations for action types.
 /// Separates the persistent settings description from runtime-only closures used for reads, tracking, and commits.
-nonisolated public struct ModelSettingActions: Codable {
+@MainActor
+public struct ModelSettingActions: Codable {
     public let id: ModelSetting.ID
     public let name: String
     public var actions: ModelSettingActionMap
@@ -44,13 +46,15 @@ nonisolated public struct ModelSettingActions: Codable {
 }
 
 /// A protocol for each ModelSettingActionType that can perform an action with a given type.
-nonisolated public protocol ModelSettingAction: Codable, Sendable {
-    var actionName: LocalizedKey { get }
+@MainActor
+public protocol ModelSettingAction: Codable {
+    var actionName: LocalizationKey { get }
 }
 
 /// An enumeration of Codable configurations for action types.
 /// Separates the persistent settings description from runtime-only closures used for reads, tracking, and commits.
-nonisolated public enum ModelSettingActionType: Codable, Sendable {
+@MainActor
+public enum ModelSettingActionType: Codable {
     case boolean(BoolModelSettingAction)
 
     case float(FloatModelSettingAction<Double>)
@@ -70,19 +74,3 @@ nonisolated public enum ModelSettingActionType: Codable, Sendable {
 }
 
 public typealias ModelSettingActionMap = OrderedDictionary<ModelSetting.ID, ModelSettingActionType>
-
-/// A Sendable localized string key.
-nonisolated public struct LocalizedKey: Codable, Hashable, Sendable {
-    public var key: String
-    public init(_ key: String) { self.key = key }
-}
-
-extension LocalizedKey {
-    @MainActor
-    public var localizedStringKey: LocalizedStringKey { LocalizedStringKey(key) }
-}
-
-extension ModelSettingAction {
-    @MainActor
-    public var actionNameKey: LocalizedStringKey { actionName.localizedStringKey }
-}

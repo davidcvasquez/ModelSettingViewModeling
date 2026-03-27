@@ -11,6 +11,7 @@
 
 import SwiftUI
 import NDGeometry
+import LocalizableStringBundle
 
 /// A live runtime setting that manages angle bindings for committing and tracking actions with the model.
 public struct AngleViewModelSetting<MoA: AnyAngle>: ViewModelSetting
@@ -32,12 +33,13 @@ public struct AngleViewModelSetting<MoA: AnyAngle>: ViewModelSetting
     public var trackingValue: Binding<MoA?>
 }
 
-nonisolated public struct AngleModelSettingAction<MoA: AnyAngle>: ModelSettingAction
-    where MoA: Strideable & Comparable & Codable & Sendable,
-          MoA.Stride: Codable & Sendable
+@MainActor
+public struct AngleModelSettingAction<MoA: AnyAngle>: @MainActor ModelSettingAction
+    where MoA: Strideable & Comparable & Codable,
+          MoA.Stride: Codable
 {
     public init(
-        actionName: LocalizedKey,
+        actionName: LocalizationKey,
         range: ClosedRange<MoA>,
         step: MoA.Stride,
         precision: RoundingPrecision
@@ -48,7 +50,7 @@ nonisolated public struct AngleModelSettingAction<MoA: AnyAngle>: ModelSettingAc
         self.precision = precision
     }
 
-    public var actionName: LocalizedKey
+    public var actionName: LocalizationKey
     public var range: ClosedRange<MoA>
     public var step: MoA.Stride
     public var precision: RoundingPrecision

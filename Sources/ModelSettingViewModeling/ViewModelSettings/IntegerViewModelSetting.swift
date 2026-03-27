@@ -10,7 +10,9 @@
 //===----------------------------------------------------------------------===//
 
 import SwiftUI
+import LocalizableStringBundle
 
+/// A live runtime setting that manages integer bindings for committing and tracking actions with the model.
 public struct IntegerViewModelSetting: ViewModelSetting {
     public init(
         action: IntegerModelSettingAction,
@@ -28,15 +30,16 @@ public struct IntegerViewModelSetting: ViewModelSetting {
     public var trackingValue: Binding<Int?>
 }
 
-nonisolated public struct IntegerModelSettingAction: ModelSettingAction {
+@MainActor
+public struct IntegerModelSettingAction: @MainActor ModelSettingAction {
     public init(
-        actionName: LocalizedKey,
+        actionName: LocalizationKey,
         range: ClosedRange<Int>
     ) {
         self.actionName = actionName
         self.range = range
     }
 
-    public var actionName: LocalizedKey
+    public var actionName: LocalizationKey
     public var range: ClosedRange<Int>
 }

@@ -13,6 +13,7 @@ import SwiftUI
 import OrderedCollections
 import NDGeometry
 import ModelSettingsSupport
+import LocalizableStringBundle
 
 public protocol ModelSettingContainerCollection {
     associatedtype Context
@@ -38,19 +39,24 @@ public protocol ModelSettingContainerCollection {
 
     var redoActionName: String { get }
 
+    @MainActor
     func undo()
 
+    @MainActor
     func redo()
 
+    @MainActor
     func startUndoGroup()
 
+    @MainActor
     func undoablyPerform(
-        actionName: LocalizedStringKey,
+        actionName: LocalizationKey,
         startGroupIfNotInGroup: Bool,
         endGroupIfInGroup: Bool,
         doit: () -> Void
     )
 
+    @MainActor
     func endUndoGroup()
 
     @MainActor
@@ -92,14 +98,14 @@ public protocol ModelSettingContainerCollection {
     func makeBindings<SettingContext, T: Equatable>(
         _ keyPath: WritableKeyPath<SettingContext, T>,
         dependency: ModelSettingDependency<SettingContext>?,
-        actionName: LocalizedStringKey
+        actionName: LocalizationKey
     ) -> (committed: Binding<T?>, tracking: Binding<T?>)
 
     @MainActor
     func makeCommitBinding<SettingContext, T: Equatable>(
         _ keyPath: WritableKeyPath<SettingContext, T>,
         dependency: ModelSettingDependency<SettingContext>?,
-        actionName: LocalizedStringKey
+        actionName: LocalizationKey
     ) -> Binding<T?>
 }
 
@@ -126,7 +132,7 @@ public extension ModelSettingContainerCollection {
         action: FloatModelSettingAction<Value>
     ) -> FloatViewModelSetting<Value> {
         let bindings = makeBindings(
-            keyPath, dependency: dependency, actionName: action.actionNameKey)
+            keyPath, dependency: dependency, actionName: action.actionName)
         return FloatViewModelSetting<Value>(
             action: action,
             committedValue: bindings.committed,
@@ -141,7 +147,7 @@ public extension ModelSettingContainerCollection {
         action: AngleModelSettingAction<Angle>
     ) -> AngleViewModelSetting<Angle> {
         let bindings = makeBindings(
-            keyPath, dependency: dependency, actionName: action.actionNameKey)
+            keyPath, dependency: dependency, actionName: action.actionName)
 
         return AngleViewModelSetting(
             action: action,
@@ -157,7 +163,7 @@ public extension ModelSettingContainerCollection {
         action: AngleModelSettingAction<NDAngle>
     ) -> AngleViewModelSetting<NDAngle> {
         let bindings = makeBindings(
-            keyPath, dependency: dependency, actionName: action.actionNameKey)
+            keyPath, dependency: dependency, actionName: action.actionName)
 
         return AngleViewModelSetting(
             action: action,
@@ -173,7 +179,7 @@ public extension ModelSettingContainerCollection {
         action: IntegerModelSettingAction
     ) -> IntegerViewModelSetting {
         let bindings = makeBindings(
-            keyPath, dependency: dependency, actionName: action.actionNameKey)
+            keyPath, dependency: dependency, actionName: action.actionName)
 
         return IntegerViewModelSetting(
             action: action,
@@ -193,7 +199,7 @@ public extension ModelSettingContainerCollection {
             committedValue: makeCommitBinding(
                 keyPath,
                 dependency: dependency,
-                actionName: action.actionNameKey)
+                actionName: action.actionName)
         )
     }
 }

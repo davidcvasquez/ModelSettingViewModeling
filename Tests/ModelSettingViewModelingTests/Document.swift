@@ -48,19 +48,25 @@ import LocalizableStringBundle
     init(metadata: Metadata, book: Book) {
         self.metadata = metadata
         self.book = book
-        self.startTrackingLayer()
+        Task { @MainActor in
+            self.startTrackingLayer()
+        }
     }
     
     init() {
         self.metadata = Metadata(trimSize: .usLetterPixelsAt300dpi)
         self.book = Book()
-        self.startTrackingLayer()
+        Task { @MainActor in
+            self.startTrackingLayer()
+        }
     }
     
     init(metadata: Metadata) {
         self.metadata = metadata
         self.book = Book()
-        self.startTrackingLayer()
+        Task { @MainActor in
+            self.startTrackingLayer()
+        }
     }
     
     // Workaround for XCTest crash during deallocation.
@@ -231,8 +237,10 @@ import LocalizableStringBundle
 
     var book: Book {
         didSet {
-            self.startTrackingLayer()
-            self.notifyEdit()
+            Task { @MainActor in
+                self.startTrackingLayer()
+                self.notifyEdit()
+            }
         }
     }
 
@@ -254,6 +262,7 @@ import LocalizableStringBundle
         return layer.subLayers.count
     }
 
+    @MainActor
     func startTrackingLayer() {
         guard let selectedPage = self.book.selectedPage,
               let selectedLayer = selectedPage.selectedLayer else {
@@ -263,6 +272,7 @@ import LocalizableStringBundle
         self.trackingLayer = selectedLayer
     }
 
+    @MainActor
     func endTrackingLayer() {
         self.trackingLayer = nil
     }
@@ -291,10 +301,12 @@ import LocalizableStringBundle
         self.undoManager?.redoActionName ?? ""
     }
 
+    @MainActor
     public func undo() {
         self.undoManager?.undo()
     }
 
+    @MainActor
     public func redo() {
         self.undoManager?.redo()
     }
@@ -303,11 +315,13 @@ import LocalizableStringBundle
 
     private var inUndoGroup: Bool = false
 
+    @MainActor
     public func startUndoGroup() {
         self.inUndoGroup = true
         self.undoManager?.beginUndoGrouping()
     }
 
+    @MainActor
     func undoablyPerform(
         operation: String,
         startGroupIfNotInGroup: Bool = false,
@@ -340,39 +354,22 @@ import LocalizableStringBundle
         }
     }
 
+    @MainActor
     public func endUndoGroup() {
         self.inUndoGroup = false
         self.undoManager?.endUndoGrouping()
     }
 
+    @MainActor
     public func undoablyPerform(
-        actionName: LocalizedStringKey,
+        actionName: LocalizationKey,
         startGroupIfNotInGroup: Bool = false,
         endGroupIfInGroup: Bool = false,
         doit: () -> Void
     ) {
-        self.undoablyPerform(operation: actionName.stringValue,
+        self.undoablyPerform(operation: String(localized: actionName.resource),
                              startGroupIfNotInGroup: startGroupIfNotInGroup,
                              endGroupIfInGroup: endGroupIfInGroup,
                              doit: doit)
-    }
-}
-
-public extension LocalizedStringKey {
-    nonisolated var stringKey: String {
-        let description = "\(self)"
-
-        // Compact way to get "THE KEY" from in-between the argument name and the trailing comma.
-        let components = description.components(separatedBy: "key: \"").map { $0.components(separatedBy: "\",") }
-
-        guard !components.isEmpty else {
-            return "key.not.found"
-        }
-
-        return components[1][0]
-    }
-
-    nonisolated var stringValue: String {
-        String(localized: String.LocalizationValue(self.stringKey))
     }
 }

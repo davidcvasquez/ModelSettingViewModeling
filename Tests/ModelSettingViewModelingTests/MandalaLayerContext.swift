@@ -21,6 +21,7 @@ public extension Document {
     }
 
     // Simple context for selected mandala sublayers, suitable for toggling boolean property state.
+    @MainActor
     var mandalaLayerContext: MandalaLayerContext? {
         get {
             guard let selectedPage = self.book.selectedPage,
@@ -59,6 +60,7 @@ public extension Document {
     }
 
     // Use this context for operations that potentially span multiple sublayers.
+    @MainActor
     var allMandalaSubLayersContext: MandalaLayerContext? {
         get {
             guard let selectedPage = self.book.selectedPage,
@@ -96,6 +98,7 @@ public extension Document {
 
     // Push context back to the selected layer, page, and book, accounting for value semantics.
     // Suitable for sublayer ops as seen in the layer stack view.
+    @MainActor
     func pushAllMandalaSubLayers(context: MandalaLayerContext) {
         var context = context
         context.selectedLayer.properties = .mandala(layer: context.mandalaLayer)
@@ -107,6 +110,7 @@ public extension Document {
     }
     
     // Tracking context for mandala sublayers, suitable for tracking scalar property state.
+    @MainActor
     var trackingMandalaLayerContext: MandalaLayerContext? {
         get {
             guard let selectedPage = self.book.selectedPage,
@@ -148,6 +152,7 @@ public extension Document {
     }
 
     // Simple context for mandala sublayers by ID, suitable for toggling boolean property state.
+    @MainActor
     func mandalaSubLayerByIDContext(_ id: MandalaSubLayer.ID) -> MandalaSubLayerByIDContext? {
         guard let selectedPage = self.book.selectedPage,
               let selectedLayer = selectedPage.selectedLayer else {
@@ -170,6 +175,7 @@ public extension Document {
     }
 
     // Push the context back to the selected layer, page, and book, accounting for value semantics.
+    @MainActor
     func pushMandalaSubLayerByID(context: MandalaSubLayerByIDContext) {
         var context = context
         context.subLayerByID.revision &+= 1
