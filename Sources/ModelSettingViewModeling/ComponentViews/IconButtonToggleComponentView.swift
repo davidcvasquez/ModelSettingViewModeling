@@ -20,6 +20,10 @@ public struct IconButtonToggleComponentView: ViewModelComponentView {
     @Binding public var isOn: Bool
     public let iconName: IconName
     @Binding public var labelText: LocalizationKey?
+
+    public static var accessibilityIdentifierSuffix: String { "iconButtonToggle" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public static var defaultSymbolSize: CGFloat {
@@ -61,5 +65,6 @@ public struct IconButtonToggleComponentView: ViewModelComponentView {
         .buttonStyle(.plain)
         .contentShape(Circle())
         .help(self.labelText ?? .missing)
+        .accessibilityIdentifier(self.accessibilityIdentifier)
     }
 }

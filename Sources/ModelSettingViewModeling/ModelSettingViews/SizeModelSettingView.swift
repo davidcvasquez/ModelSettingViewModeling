@@ -265,6 +265,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                     viewModel: viewModel,
                     labelIcon: self._labelIcon,
                     labelText: self._labelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingWidthComponentInput
                 )
 
@@ -275,12 +276,14 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                         range: range,
                         step: step,
                         labelText: self.labelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingWidthComponentInput
                     )
                 }
                 else if layoutOptions.showLabelText {
                     RenamableLabelTextComponentView(
                         viewModel: viewModel,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingInput,
                         labelText: labelText,
                         verticalAlignment: .center
@@ -297,6 +300,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                 range: self.range,
                                 precision: precision,
                                 labelText: self.labelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingWidthComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == sizeModelSetting?.action.widthSettingID },
@@ -317,6 +321,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                 range: self.range,
                                 precision: self.precision,
                                 labelText: self.labelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingWidthComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == sizeModelSetting?.action.widthSettingID },
@@ -352,6 +357,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                     floatProxy: $widthFloatProxy,
                                     range: self.range, step: self.step,
                                     labelText: self.labelText,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingWidthComponentInput
                                 )
                             }
@@ -371,6 +377,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                         range: self.range,
                                         step: self.step,
                                         labelText: self.labelText,
+                                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                         isTrackingInput: $isTrackingWidthComponentInput
                                     ),
                                     localization: self.localization,
@@ -391,6 +398,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                         range: range,
                         step: step,
                         labelText: self.labelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingWidthComponentInput
                     ) {
                         self.commitWidthFloatProxy()
@@ -406,6 +414,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                     isOn: $maintainBoolProxy,
                     iconName: self.maintainSizeRatioLabelIcon,
                     labelText: self._maintainSizeRatioLabelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingMaintainSizeRatioComponentInput
                 )
                 .padding(toggleEdgeInsets)
@@ -416,6 +425,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                     viewModel: viewModel,
                     labelIcon: _heightLabelIcon,
                     labelText: _heightLabelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingHeightComponentInput
                 )
 
@@ -426,12 +436,14 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                         range: range,
                         step: step,
                         labelText: self.heightLabelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingHeightComponentInput
                     )
                 }
                 else if layoutOptions.showLabelText {
                     RenamableLabelTextComponentView(
                         viewModel: viewModel,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingInput,
                         labelText: heightLabelText,
                         verticalAlignment: .center
@@ -448,6 +460,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                 range: self.range,
                                 precision: precision,
                                 labelText: self.heightLabelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingHeightComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == sizeModelSetting?.action.heightSettingID },
@@ -468,6 +481,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                 range: self.range,
                                 precision: self.precision,
                                 labelText: self.heightLabelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingHeightComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == sizeModelSetting?.action.heightSettingID },
@@ -503,6 +517,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                     floatProxy: $heightFloatProxy,
                                     range: self.range, step: self.step,
                                     labelText: self.heightLabelText,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingHeightComponentInput
                                 )
                             }
@@ -522,6 +537,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                                         range: self.range,
                                         step: self.step,
                                         labelText: self.heightLabelText,
+                                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                         isTrackingInput: $isTrackingHeightComponentInput
                                     ),
                                     localization: self.localization,
@@ -542,6 +558,7 @@ public struct SizeModelSettingView<Value: BinaryFloatingPoint>: ModelSettingView
                         range: range,
                         step: step,
                         labelText: self.heightLabelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingHeightComponentInput
                     ) {
                         self.commitHeightFloatProxy()

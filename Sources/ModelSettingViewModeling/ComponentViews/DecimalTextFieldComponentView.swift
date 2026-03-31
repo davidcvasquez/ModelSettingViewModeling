@@ -28,6 +28,9 @@ public struct DecimalTextFieldComponentView<
 
     @Binding private var floatProxy: Value
 
+    public static var accessibilityIdentifierSuffix: String { "decimalTextField" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
     @Binding public var isFocused: Bool
 
@@ -37,17 +40,19 @@ public struct DecimalTextFieldComponentView<
         range: ClosedRange<Value>,
         precision: RoundingPrecision,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>,
         isFocused: Binding<Bool>,
         onCommit: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self._floatProxy = floatProxy
-        self._isTrackingInput = isTrackingInput
-        self._isFocused = isFocused
         self.range = range
         self.precision = precision
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
+        self._isFocused = isFocused
         self.onCommit = onCommit
     }
 
@@ -113,6 +118,7 @@ public struct DecimalTextFieldComponentView<
                 width: Self.textFieldWidth,
                 alignment: .trailing
             )
+            .accessibilityIdentifier(self.accessibilityIdentifier)
         }
     }
 

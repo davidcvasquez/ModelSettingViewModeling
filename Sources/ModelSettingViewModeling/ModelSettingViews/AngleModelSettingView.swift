@@ -70,6 +70,7 @@ public struct AngleModelSettingView<MoA: AnyAngle>: ModelSettingView
                 viewModel: viewModel,
                 labelIcon: self._labelIcon,
                 labelText: self._labelText,
+                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                 isTrackingInput: $isTrackingInput)
 
             if layoutOptions.showControls {
@@ -79,6 +80,7 @@ public struct AngleModelSettingView<MoA: AnyAngle>: ModelSettingView
                     labelText: self.labelText,
                     value: $angleProxy,
                     in: self.range,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingComponentInput
                 )
                 .help(self.labelText)
@@ -88,6 +90,7 @@ public struct AngleModelSettingView<MoA: AnyAngle>: ModelSettingView
                 Spacer()
                 RenamableLabelTextComponentView(
                     viewModel: viewModel,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingInput,
                     labelText: labelText,
                     verticalAlignment: .center
@@ -118,6 +121,7 @@ public struct AngleModelSettingView<MoA: AnyAngle>: ModelSettingView
                                 labelText: self.labelText,
                                 value: $angleProxy,
                                 in: self.range,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingComponentInput)
                         }
 #endif

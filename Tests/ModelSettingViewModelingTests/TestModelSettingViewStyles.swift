@@ -29,6 +29,7 @@ struct TestModelSettingViewStyles {
             id: .testSizeID,
             labelIcon: .system(name: "arrow.left.and.line.vertical.and.arrow.right"),
             labelText: .testWidthLabel,
+            accessibilityIdentifier: "testSize",
             specialPresentation: .linkedPercent(
                 linkedLabelIcon: .system(name: "arrow.up.and.line.horizontal.and.arrow.down"),
                 linkedLabelText: .testHeightLabel,
@@ -40,30 +41,35 @@ struct TestModelSettingViewStyles {
             id: .testSizeFaderID,
             labelIcon: .system(name: "sunset"),
             labelText: .testSizeFaderLabel,
+            accessibilityIdentifier: "testSizeFader",
             specialPresentation: .percent
         ),
         .testRotationID: ModelSettingViewStyle(
             id: .testRotationID,
             labelIcon: .system(name: "angle"),
             labelText: .testRotationLabel,
+            accessibilityIdentifier: "testRotation",
             specialPresentation: .degrees
         ),
         .testShearXID: ModelSettingViewStyle(
             id: .testShearXID,
             labelIcon: .system(name: "angle"),
             labelText: .testShearXLabel,
+            accessibilityIdentifier: "testShearX",
             specialPresentation: .degrees
         ),
         .testShearYID: ModelSettingViewStyle(
             id: .testShearYID,
             labelIcon: .system(name: "angle"),
             labelText: .testShearYLabel,
+            accessibilityIdentifier: "testShearY",
             specialPresentation: .degrees
         ),
         .testCountID: ModelSettingViewStyle(
             id: .testCountID,
             labelIcon: .system(name: "globe"),
             labelText: .testCountLabel,
+            accessibilityIdentifier: "testCount",
             specialPresentation: .native
         )
     ]

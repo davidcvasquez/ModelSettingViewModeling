@@ -78,6 +78,7 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                 viewModel: viewModel,
                 labelIcon: _labelIcon,
                 labelText: _labelText,
+                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                 isTrackingInput: $isTrackingInput
             )
 
@@ -88,12 +89,14 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                     range: range,
                     step: step,
                     labelText: self.labelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingComponentInput
                 )
             }
             else if layoutOptions.showLabelText {
                 RenamableLabelTextComponentView(
                     viewModel: viewModel,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingInput,
                     labelText: labelText,
                     verticalAlignment: .center
@@ -110,6 +113,7 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                             range: self.range,
                             precision: precision,
                             labelText: self.labelText,
+                            baseAccessibilityIdentifier: self.accessibilityIdentifier,
                             isTrackingInput: $isTrackingComponentInput,
                             isFocused: $isFocused
                         ) {
@@ -123,6 +127,7 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                             range: self.range,
                             precision: self.precision,
                             labelText: self.labelText,
+                            baseAccessibilityIdentifier: self.accessibilityIdentifier,
                             isTrackingInput: $isTrackingComponentInput,
                             isFocused: $isFocused
                         ) {
@@ -150,6 +155,7 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                 viewModel: viewModel,
                                 floatProxy: $floatProxy, range: self.range, step: self.step,
                                 labelText: self.labelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingComponentInput
                             )
                         }
@@ -169,6 +175,7 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                     range: self.range,
                                     step: self.step,
                                     labelText: self.labelText,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingComponentInput
                                 ),
                                 localization: self.localization,
@@ -189,6 +196,7 @@ public struct FloatModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                     range: range,
                     step: step,
                     labelText: self.labelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingComponentInput
                 ) {
                     self.commitFloatProxy()

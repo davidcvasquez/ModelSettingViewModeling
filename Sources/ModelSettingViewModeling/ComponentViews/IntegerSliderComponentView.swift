@@ -20,6 +20,9 @@ public struct IntegerSliderComponentView: ViewModelComponentView {
 
     @Binding private var integerValue: Int
 
+    public static var accessibilityIdentifierSuffix: String { "integerSlider" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public init(
@@ -27,13 +30,15 @@ public struct IntegerSliderComponentView: ViewModelComponentView {
         integerValue: Binding<Int>,
         range: ClosedRange<Int>,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
         self._integerValue = integerValue
-        self._isTrackingInput = isTrackingInput
         self.range = range
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
 
         self.floatProxy = NDFloat(integerValue.wrappedValue)
     }
@@ -50,15 +55,13 @@ public struct IntegerSliderComponentView: ViewModelComponentView {
     public var body: some View {
         Group {
             ZStack {
-                if layoutOptions.showLabelText {
-                    Text(self.labelText)
-                        .frame(maxWidth: .infinity,
-                               alignment: .leading)
-                        .padding(EdgeInsets(top: layoutOptions.verticalTitleMargin,
-                                            leading: 20.0, bottom: 0, trailing: 0))
-                        .font(.caption2)
-                        .opacity(captionOpacity)
-                }
+                RenamableLabelTextComponentView(
+                    viewModel: viewModel,
+                    baseAccessibilityIdentifier: baseAccessibilityIdentifier,
+                    isTrackingInput: $isTrackingInput,
+                    labelText: labelText,
+                    verticalAlignment: .top
+                )
 
                 Slider(value: $floatProxy, in: self.floatRange) { editing in
                     self.isTrackingInput = editing
@@ -71,6 +74,7 @@ public struct IntegerSliderComponentView: ViewModelComponentView {
                 .listRowBackground(Rectangle().fill(Material.ultraThinMaterial))
                 .padding(layoutOptions.sliderEdgeInsets)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityIdentifier(self.accessibilityIdentifier)
             }
         }
     }
@@ -87,6 +91,9 @@ public struct PopoverIntegerSliderComponentView: ViewModelComponentView {
 
     @Binding private var integerValue: Int
 
+    public static var accessibilityIdentifierSuffix: String { "popupIntegerSlider" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public init(
@@ -94,13 +101,15 @@ public struct PopoverIntegerSliderComponentView: ViewModelComponentView {
         integerValue: Binding<Int>,
         range: ClosedRange<Int>,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
         self._integerValue = integerValue
-        self._isTrackingInput = isTrackingInput
         self.range = range
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
 
         self.floatProxy = NDFloat(integerValue.wrappedValue)
     }
@@ -130,6 +139,7 @@ public struct PopoverIntegerSliderComponentView: ViewModelComponentView {
                height: self.layoutOptions.popupSliderContentSize.height,
                alignment: .center)
 #endif
+        .accessibilityIdentifier(self.accessibilityIdentifier)
         .background {
             RoundedRectangle(cornerRadius: 6)
                 .fill(.ultraThinMaterial)

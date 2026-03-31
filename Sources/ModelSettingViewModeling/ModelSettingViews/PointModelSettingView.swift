@@ -238,6 +238,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                     viewModel: viewModel,
                     labelIcon: _xLabelIcon,
                     labelText: _xLabelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingXComponentInput
                 )
 
@@ -248,12 +249,14 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                         range: range,
                         step: step,
                         labelText: self.labelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingXComponentInput
                     )
                 }
                 else if layoutOptions.showLabelText {
                     RenamableLabelTextComponentView(
                         viewModel: viewModel,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingInput,
                         labelText: labelText,
                         verticalAlignment: .center
@@ -270,6 +273,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                 range: self.range,
                                 precision: precision,
                                 labelText: self.labelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingXComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == pointModelSetting?.action.xSettingID },
@@ -290,6 +294,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                 range: self.range,
                                 precision: self.precision,
                                 labelText: self.labelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingXComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == pointModelSetting?.action.xSettingID },
@@ -325,6 +330,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                     floatProxy: $xFloatProxy,
                                     range: self.range, step: self.step,
                                     labelText: self.labelText,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingXComponentInput
                                 )
                             }
@@ -344,6 +350,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                         range: self.range,
                                         step: self.step,
                                         labelText: self.labelText,
+                                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                         isTrackingInput: $isTrackingXComponentInput
                                     ),
                                     localization: self.localization,
@@ -364,6 +371,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                         range: range,
                         step: step,
                         labelText: self.xLabelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingXComponentInput
                     ) {
                         self.commitXFloatProxy()
@@ -377,6 +385,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                     viewModel: viewModel,
                     labelIcon: _yLabelIcon,
                     labelText: _yLabelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingYComponentInput
                 )
 
@@ -387,12 +396,14 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                         range: range,
                         step: step,
                         labelText: self.yLabelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingYComponentInput
                     )
                 }
                 else if layoutOptions.showLabelText {
                     RenamableLabelTextComponentView(
                         viewModel: viewModel,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingInput,
                         labelText: yLabelText,
                         verticalAlignment: .center
@@ -409,6 +420,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                 range: self.range,
                                 precision: precision,
                                 labelText: self.yLabelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingYComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == pointModelSetting?.action.ySettingID },
@@ -429,6 +441,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                 range: self.range,
                                 precision: self.precision,
                                 labelText: self.yLabelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingYComponentInput,
                                 isFocused: Binding(
                                     get: { focusedID == pointModelSetting?.action.ySettingID },
@@ -464,6 +477,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                     floatProxy: $yFloatProxy,
                                     range: self.range, step: self.step,
                                     labelText: self.yLabelText,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingYComponentInput
                                 )
                             }
@@ -483,6 +497,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                                         range: self.range,
                                         step: self.step,
                                         labelText: self.yLabelText,
+                                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                         isTrackingInput: $isTrackingYComponentInput
                                     ),
                                     localization: self.localization,
@@ -503,6 +518,7 @@ public struct PointModelSettingView<Value: BinaryFloatingPoint>: ModelSettingVie
                         range: range,
                         step: step,
                         labelText: self.yLabelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingYComponentInput
                     ) {
                         self.commitYFloatProxy()

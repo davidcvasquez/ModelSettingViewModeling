@@ -51,6 +51,7 @@ public struct IntegerModelSettingView: ModelSettingView {
                 viewModel: viewModel,
                 labelIcon: _labelIcon,
                 labelText: _labelText,
+                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                 isTrackingInput: $isTrackingInput
             )
 
@@ -60,12 +61,14 @@ public struct IntegerModelSettingView: ModelSettingView {
                     integerValue: $integerProxy,
                     range: self.range,
                     labelText: self.labelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingComponentInput
                 )
             }
             else if layoutOptions.showLabelText {
                 RenamableLabelTextComponentView(
                     viewModel: viewModel,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingInput,
                     labelText: labelText,
                     verticalAlignment: .top
@@ -79,6 +82,7 @@ public struct IntegerModelSettingView: ModelSettingView {
                         integerProxy: $integerProxy,
                         range: self.range,
                         labelText: self.labelText,
+                        baseAccessibilityIdentifier: self.accessibilityIdentifier,
                         isTrackingInput: $isTrackingComponentInput,
                         isFocused: $isFocused
                     ) {
@@ -103,6 +107,7 @@ public struct IntegerModelSettingView: ModelSettingView {
                                 integerValue: $integerProxy,
                                 range: self.range,
                                 labelText: self.labelText,
+                                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                 isTrackingInput: $isTrackingComponentInput
                             )
                         }
@@ -121,6 +126,7 @@ public struct IntegerModelSettingView: ModelSettingView {
                                     integerValue: $integerProxy,
                                     range: self.range,
                                     labelText: self.labelText,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingComponentInput
                                 ),
                                 localization: self.localization,
@@ -141,6 +147,7 @@ public struct IntegerModelSettingView: ModelSettingView {
                     range: self.range,
                     step: 1,
                     labelText: self.labelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingComponentInput
                 )
             }

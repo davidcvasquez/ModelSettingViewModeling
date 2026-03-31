@@ -57,6 +57,7 @@ public struct AngleComponentView<MoA: AnyAngle>: ViewModelComponentView {
         labelText: LocalizationKey,
         value: Binding<MoA>,
         in bounds: ClosedRange<MoA> = MoA()...MoA(degrees: 360.0),
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
@@ -64,6 +65,7 @@ public struct AngleComponentView<MoA: AnyAngle>: ViewModelComponentView {
         self.labelText = labelText
         self._rotation = value
         self.bounds = bounds
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
         self._isTrackingInput = isTrackingInput
     }
 
@@ -72,6 +74,9 @@ public struct AngleComponentView<MoA: AnyAngle>: ViewModelComponentView {
     @Binding public var rotation: MoA
 
     let bounds: ClosedRange<MoA>
+
+    public static var accessibilityIdentifierSuffix: String { "angleDial" }
+    public let baseAccessibilityIdentifier: String
 
     @Binding public var isTrackingInput: Bool
 
@@ -92,6 +97,7 @@ public struct AngleComponentView<MoA: AnyAngle>: ViewModelComponentView {
             if !isPopover {
                 RenamableLabelTextComponentView(
                     viewModel: viewModel,
+                    baseAccessibilityIdentifier: baseAccessibilityIdentifier,
                     isTrackingInput: $isTrackingInput,
                     labelText: labelText,
                     verticalAlignment: .center
@@ -102,6 +108,7 @@ public struct AngleComponentView<MoA: AnyAngle>: ViewModelComponentView {
                        size: self.dialSize)
             .frame(width: self.dialDiameter, height: self.dialDiameter,
                    alignment: .center)
+            .accessibilityIdentifier(self.accessibilityIdentifier)
             .opacity(self.dialOpacity)
             .visualEffect { [isDragging, grabberPosition, dialSize, dragEffectT] content, proxy in
                 let tf = Float(dragEffectT)               // 0...1

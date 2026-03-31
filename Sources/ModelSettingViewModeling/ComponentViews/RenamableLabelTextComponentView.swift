@@ -17,9 +17,14 @@ public struct RenamableLabelTextComponentView: ViewModelComponentView {
     @Environment(LocalizationRuntime.self) private var localization
 
     public let viewModel: AnyModelSettingViewModel
+
+    public static var accessibilityIdentifierSuffix: String { "renamableLabel" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public var labelText: LocalizationKey
+
     public let verticalAlignment: VerticalAlignment
 
     public var body: some View {
@@ -60,10 +65,12 @@ public struct RenamableLabelTextComponentView: ViewModelComponentView {
                                     }
                                 }
                             }
+                            .accessibilityIdentifier(self.accessibilityIdentifier)
                     }
                     else {
                         textLabel
                     }
+
                     Button {
                         self.editor?.isEditingStrings.toggle()
                     } label: {
@@ -92,7 +99,8 @@ public struct RenamableLabelTextComponentView: ViewModelComponentView {
                         top: self.renameVerticleMargin,
                         leading: 5.0,
                         bottom: 0, trailing: 0))
-                   .help(self.isEditingName ? "Done" : "Edit Setting Name")
+                    .help(self.isEditingName ? "Done" : "Edit Setting Name")
+                    .accessibilityIdentifier(self.isEditingButtonAccessibilityIdentifier)
 
                     Spacer()
                 }
@@ -105,6 +113,12 @@ public struct RenamableLabelTextComponentView: ViewModelComponentView {
             }
         }
     }
+
+    /// Identifier for UI Automation interfaces.
+    public var isEditingButtonAccessibilityIdentifier: String {
+        "\(baseAccessibilityIdentifier)\(Self.isEditingButtonAccessibilityIdentifierSuffix)"
+    }
+    public static var isEditingButtonAccessibilityIdentifierSuffix: String { "-isEditingButton" }
 
     @State private var editor: LocalizationEditorService?
     private var isEditingName: Bool {
@@ -151,6 +165,7 @@ public struct RenamableLabelTextComponentView: ViewModelComponentView {
             .foregroundStyle(Color.primary.opacity(captionOpacity))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(labelTextPadding)
+            .accessibilityIdentifier(self.accessibilityIdentifier)
     }
 
     private var captionOpacity: CGFloat {

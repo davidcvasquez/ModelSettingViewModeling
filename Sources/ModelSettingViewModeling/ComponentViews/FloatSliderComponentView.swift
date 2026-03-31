@@ -28,6 +28,9 @@ public struct FloatSliderComponentView<
 
     @Binding private var floatProxy: Value
 
+    public static var accessibilityIdentifierSuffix: String { "floatSlider" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public init(
@@ -36,14 +39,16 @@ public struct FloatSliderComponentView<
         range: ClosedRange<Value>,
         step: Value.Stride,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
         self._floatProxy = floatProxy
-        self._isTrackingInput = isTrackingInput
         self.range = range
         self.step = step
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
     }
 
     private var labelText: LocalizationKey
@@ -55,6 +60,7 @@ public struct FloatSliderComponentView<
             ZStack {
                 RenamableLabelTextComponentView(
                     viewModel: viewModel,
+                    baseAccessibilityIdentifier: baseAccessibilityIdentifier,
                     isTrackingInput: $isTrackingInput,
                     labelText: labelText,
                     verticalAlignment: .top
@@ -68,6 +74,7 @@ public struct FloatSliderComponentView<
                 .listRowBackground(Rectangle().fill(Material.ultraThinMaterial))
                 .padding(layoutOptions.sliderEdgeInsets)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityIdentifier(self.accessibilityIdentifier)
             }
         }
     }
@@ -88,6 +95,9 @@ public struct PopoverFloatSliderComponentView<
 
     @Binding private var floatProxy: Value
 
+    public static var accessibilityIdentifierSuffix: String { "popupFloatSlider" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public init(
@@ -96,14 +106,16 @@ public struct PopoverFloatSliderComponentView<
         range: ClosedRange<Value>,
         step: Value.Stride,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
         self._floatProxy = floatProxy
-        self._isTrackingInput = isTrackingInput
         self.range = range
         self.step = step
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
     }
 
     private var labelText: LocalizationKey
@@ -122,6 +134,7 @@ public struct PopoverFloatSliderComponentView<
                height: self.layoutOptions.popupSliderContentSize.height,
                alignment: .center)
 #endif
+        .accessibilityIdentifier(self.accessibilityIdentifier)
         .background {
             RoundedRectangle(cornerRadius: 6)
                 .fill(.ultraThinMaterial)

@@ -14,6 +14,7 @@ import CompactUUID
 import NDGeometry
 import LocalizableStringBundle
 
+/// A component view that displays a system or local icon according to the layout options of a ViewModel.
 public struct IconComponentView: ViewModelComponentView {
     @Environment(\.isEnabled) private var isEnabled
 
@@ -21,6 +22,9 @@ public struct IconComponentView: ViewModelComponentView {
 
     @Binding public var labelIcon: IconName?
     @Binding public var labelText: LocalizationKey?
+
+    public static let accessibilityIdentifierSuffix: String = "icon"
+    public let baseAccessibilityIdentifier: String
 
     @Binding public var isTrackingInput: Bool
 
@@ -30,11 +34,13 @@ public struct IconComponentView: ViewModelComponentView {
         viewModel: AnyModelSettingViewModel,
         labelIcon: Binding<IconName?>,
         labelText: Binding<LocalizationKey?>,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
         self._labelIcon = labelIcon
         self._labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
         self._isTrackingInput = isTrackingInput
     }
 
@@ -68,6 +74,7 @@ public struct IconComponentView: ViewModelComponentView {
                            height: layoutOptions.verticalNoIconMargin)
             }
         }
+        .accessibilityIdentifier(self.accessibilityIdentifier)
     }
 
     private var iconOpacity: NDFloat {

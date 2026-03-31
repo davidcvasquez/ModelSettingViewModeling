@@ -26,6 +26,9 @@ public struct FloatStepperComponentView<
 
     @Binding private var floatProxy: Value
 
+    public static var accessibilityIdentifierSuffix: String { "floatStepper" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public init(
@@ -34,15 +37,17 @@ public struct FloatStepperComponentView<
         range: ClosedRange<Value>,
         step: Value.Stride,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>,
         onCommit: @escaping () -> Void
    ) {
         self.viewModel = viewModel
         self._floatProxy = floatProxy
-        self._isTrackingInput = isTrackingInput
         self.range = range
         self.step = step
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
         self.onCommit = onCommit
     }
 
@@ -74,5 +79,6 @@ public struct FloatStepperComponentView<
         .padding(self.stepperEdgeInsets)
         .fixedSize(horizontal: true, vertical: true)
         .frame(alignment: .trailing)
+        .accessibilityIdentifier(self.accessibilityIdentifier)
     }
 }

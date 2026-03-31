@@ -63,18 +63,21 @@ public struct ModelSettingViewStyle: Codable, Identifiable {
     public var isVisible: Bool
     public var labelIcon: IconName
     public var labelText: LocalizationKey
+    public let accessibilityIdentifier: String
 
     public init(
         id: ModelSetting.ID,
         isVisible: Bool = true,
         labelIcon: IconName,
         labelText: LocalizationKey,
+        accessibilityIdentifier: String,
         specialPresentation: SpecialPresentation
     ) {
         self.id = id
         self.isVisible = isVisible
         self.labelIcon = labelIcon
         self.labelText = labelText
+        self.accessibilityIdentifier = accessibilityIdentifier
         self.specialPresentation = specialPresentation
     }
 

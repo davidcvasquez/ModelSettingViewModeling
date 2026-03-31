@@ -14,14 +14,30 @@ import CompactUUID
 import LocalizableStringBundle
 
 public protocol ViewModelComponentView: View {
+    /// - Returns: The view model that manages this component.
     var viewModel: AnyModelSettingViewModel { get }
+
+    /// - Returns: A suffix to be combined with the base accessibility identifier for this component.
+    static var accessibilityIdentifierSuffix: String { get }
+
+    /// - Returns: Base identifier used to build the full identifier for this component.
+    var baseAccessibilityIdentifier: String { get }
+
+    /// - Returns: Identifier for UI Automation interfaces.
+    var accessibilityIdentifier: String { get }
 
     var isTrackingInput: Bool { get }
 }
 
 public extension ViewModelComponentView {
+    /// The layout options for the view model that manages this component.
     var layoutOptions: ModelSettingViewLayoutOptions {
         viewModel.layoutOptions
+    }
+
+    /// Identifier for UI Automation interfaces.
+    var accessibilityIdentifier: String {
+        "\(baseAccessibilityIdentifier).\(Self.accessibilityIdentifierSuffix)"
     }
 }
 
@@ -88,6 +104,10 @@ public extension ModelSettingView {
                 // Read-only
             }
         )
+    }
+
+    var accessibilityIdentifier: String {
+        viewStyle?.accessibilityIdentifier ?? "missing"
     }
 
     /// - Returns: Any special presentation attributes used for this view. Use `.native` for the default presentation.

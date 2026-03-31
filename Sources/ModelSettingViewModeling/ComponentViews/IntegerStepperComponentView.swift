@@ -19,6 +19,9 @@ public struct IntegerStepperComponentView: ViewModelComponentView {
 
     @Binding private var integerProxy: Int
 
+    public static var accessibilityIdentifierSuffix: String { "integerStepper" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
 
     public init(
@@ -27,14 +30,16 @@ public struct IntegerStepperComponentView: ViewModelComponentView {
         range: ClosedRange<Int>,
         step: Int.Stride,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>
     ) {
         self.viewModel = viewModel
         self._integerProxy = integerProxy
-        self._isTrackingInput = isTrackingInput
         self.range = range
         self.step = step
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
     }
 
     private var labelText: LocalizationKey
@@ -53,5 +58,6 @@ public struct IntegerStepperComponentView: ViewModelComponentView {
         .padding(EdgeInsets(top: 0, leading: -4, bottom: 0, trailing: 8))
         .fixedSize(horizontal: true, vertical: true)
         .frame(alignment: .trailing)
+        .accessibilityIdentifier(self.accessibilityIdentifier)
     }
 }

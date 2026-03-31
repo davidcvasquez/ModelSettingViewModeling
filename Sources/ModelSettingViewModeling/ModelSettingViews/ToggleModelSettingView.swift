@@ -44,6 +44,7 @@ public struct ToggleModelSettingView: ModelSettingView {
                 viewModel: viewModel,
                 labelIcon: _labelIcon,
                 labelText: _labelText,
+                baseAccessibilityIdentifier: self.accessibilityIdentifier,
                 isTrackingInput: $isTrackingInput
             )
 
@@ -63,6 +64,7 @@ public struct ToggleModelSettingView: ModelSettingView {
                     isOn: $boolProxy,
                     iconName: iconName,
                     labelText: self._labelText,
+                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                     isTrackingInput: $isTrackingComponentInput
                 )
 

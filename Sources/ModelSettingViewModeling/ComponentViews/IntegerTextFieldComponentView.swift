@@ -21,6 +21,9 @@ public struct IntegerTextFieldComponentView: ViewModelComponentView {
 
     @Binding private var integerProxy: Int
 
+    public static var accessibilityIdentifierSuffix: String { "integerTextField" }
+    public let baseAccessibilityIdentifier: String
+
     @Binding public var isTrackingInput: Bool
     @Binding public var isFocused: Bool
 
@@ -29,16 +32,18 @@ public struct IntegerTextFieldComponentView: ViewModelComponentView {
         integerProxy: Binding<Int>,
         range: ClosedRange<Int>,
         labelText: LocalizationKey,
+        baseAccessibilityIdentifier: String,
         isTrackingInput: Binding<Bool>,
         isFocused: Binding<Bool>,
         onCommit: @escaping () -> Void
     ) {
         self.viewModel = viewModel
         self._integerProxy = integerProxy
-        self._isTrackingInput = isTrackingInput
-        self._isFocused = isFocused
         self.range = range
         self.labelText = labelText
+        self.baseAccessibilityIdentifier = baseAccessibilityIdentifier
+        self._isTrackingInput = isTrackingInput
+        self._isFocused = isFocused
         self.onCommit = onCommit
     }
 
@@ -101,6 +106,7 @@ public struct IntegerTextFieldComponentView: ViewModelComponentView {
                 width: Self.textFieldWidth,
                 alignment: .trailing
             )
+            .accessibilityIdentifier(self.accessibilityIdentifier)
         }
     }
 
