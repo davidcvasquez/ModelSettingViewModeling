@@ -73,8 +73,8 @@ jobs:
             Build/PackageRunnerUITests.xcresult \
             > coverage.xml
 
-        echo "Wrote coverage.xml"
-        wc -l coverage.xml || true
+          echo "Wrote coverage.xml"
+          wc -l coverage.xml || true
 
       - name: Upload xcresult bundle
         uses: actions/upload-artifact@v4
