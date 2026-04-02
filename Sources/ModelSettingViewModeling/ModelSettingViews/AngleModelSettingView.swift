@@ -140,6 +140,7 @@ public struct AngleModelSettingView<MoA: AnyAngle>: ModelSettingView
                                     labelText: self.labelText,
                                     value: $angleProxy,
                                     in: self.range,
+                                    baseAccessibilityIdentifier: self.accessibilityIdentifier,
                                     isTrackingInput: $isTrackingComponentInput),
                                 localization: self.localization,
                                 contentSize: self.layoutOptions.popupDialContentSize,

@@ -27,6 +27,8 @@ public struct ModelSettingGridView: View {
     @State var showSettings: Bool = true
     @State private var glow = true
 
+    public static var accessibilityIdentifierSuffix: String { "disclosureGroup" }
+
     public init(
         viewModel: AnyModelSettingViewModel,
         isTrackingInput: Binding<Bool>,
@@ -61,6 +63,7 @@ public struct ModelSettingGridView: View {
                             .font(.caption)
                     }
                 }
+                .accessibilityIdentifier("\(styles.name).\(Self.accessibilityIdentifierSuffix)")
                 .foregroundStyle(Color.primary.opacity(captionOpacity))
                 .onChange(of: showSettings) {
                     UserDefaults.standard.set(showSettings, forKey: self.styles.isVisiblePrefKey)
