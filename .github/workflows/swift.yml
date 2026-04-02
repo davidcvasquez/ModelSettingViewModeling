@@ -72,10 +72,10 @@ jobs:
             --output-format cobertura \
             --project-root "$GITHUB_WORKSPACE" \
             Build/PackageRunnerUITests.xcresult \
-            > coverage.xml
+            > coverage-full.xml
   
-          echo "Wrote coverage.xml"
-          wc -l coverage.xml || true
+          echo "Wrote coverage-full.xml"
+          wc -l coverage-full.xml || true
 
       - name: Filter coverage to ModelSettingViewModeling package only
         run: |
