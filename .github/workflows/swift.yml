@@ -70,6 +70,8 @@ jobs:
 
           xcresultparser \
             --output-format cobertura \
+            --project-root "$GITHUB_WORKSPACE" \
+            -t ModelSettingViewModeling \
             Build/PackageRunnerUITests.xcresult \
             > coverage.xml
 
