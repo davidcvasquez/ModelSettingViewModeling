@@ -62,11 +62,30 @@ jobs:
         run: |
           xcrun xccov view --report Build/PackageRunnerUITests.xcresult || true
 
+      - name: Convert xcresult to Cobertura XML
+        run: |
+          set -euo pipefail
+
+          brew install xcresultparser
+          xcresultparser \
+            -o coverage.xml \
+            -t cobertura \
+            Build/PackageRunnerUITests.xcresult
+
+          echo "Wrote coverage.xml"
+          wc -l coverage.xml || true
+
+      - name: Upload xcresult bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: PackageRunnerUITests-xcresult
+          path: Build/PackageRunnerUITests.xcresult
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          xcode: true
-          xcode_archive_path: Build/PackageRunnerUITests.xcresult
+          files: coverage.xml
           fail_ci_if_error: true
           verbose: true
+
