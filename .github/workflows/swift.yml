@@ -71,12 +71,138 @@ jobs:
           xcresultparser \
             --output-format cobertura \
             --project-root "$GITHUB_WORKSPACE" \
-            -t PackageRunner.app \
             Build/PackageRunnerUITests.xcresult \
             > coverage.xml
   
           echo "Wrote coverage.xml"
           wc -l coverage.xml || true
+
+      - name: Filter coverage to ModelSettingViewModeling package only
+        run: |
+          set -euo pipefail
+  
+          python3 <<'PY'
+          import xml.etree.ElementTree as ET
+  
+          input_file = "coverage-full.xml"
+          output_file = "coverage.xml"
+          wanted_prefix = "Sources/ModelSettingViewModeling/"
+  
+          tree = ET.parse(input_file)
+          root = tree.getroot()
+  
+          packages = root.find("packages")
+          if packages is None:
+              raise SystemExit("No <packages> element found in coverage-full.xml")
+  
+          new_packages = ET.Element("packages")
+  
+          total_lines_valid = 0
+          total_lines_covered = 0
+          total_branches_valid = 0
+          total_branches_covered = 0
+  
+          kept_any = False
+  
+          for package in packages.findall("package"):
+              classes = package.find("classes")
+              if classes is None:
+                  continue
+  
+              new_classes = ET.Element("classes")
+              package_lines_valid = 0
+              package_lines_covered = 0
+              package_branches_valid = 0
+              package_branches_covered = 0
+  
+              for cls in classes.findall("class"):
+                  filename = cls.get("filename", "")
+                  if not filename.startswith(wanted_prefix):
+                      continue
+  
+                  kept_any = True
+                  new_classes.append(cls)
+  
+                  lines = cls.find("lines")
+                  if lines is None:
+                      continue
+  
+                  for line in lines.findall("line"):
+                      hits = int(line.get("hits", "0"))
+                      package_lines_valid += 1
+                      if hits > 0:
+                          package_lines_covered += 1
+  
+                      if line.get("branch") == "true":
+                          cond_cov = line.get("condition-coverage", "")
+                          # Best effort parse like "50% (1/2)"
+                          if "(" in cond_cov and "/" in cond_cov and ")" in cond_cov:
+                              frac = cond_cov.split("(", 1)[1].split(")", 1)[0]
+                              covered_s, valid_s = frac.split("/", 1)
+                              covered = int(covered_s)
+                              valid = int(valid_s)
+                              package_branches_covered += covered
+                              package_branches_valid += valid
+  
+              if len(new_classes):
+                  new_package = ET.Element("package", package.attrib)
+                  new_package.append(new_classes)
+  
+                  line_rate = (
+                      package_lines_covered / package_lines_valid
+                      if package_lines_valid else 0.0
+                  )
+                  branch_rate = (
+                      package_branches_covered / package_branches_valid
+                      if package_branches_valid else 1.0
+                  )
+  
+                  new_package.set("line-rate", str(line_rate))
+                  new_package.set("branch-rate", str(branch_rate))
+                  new_package.set("complexity", package.get("complexity", "0.0"))
+  
+                  new_packages.append(new_package)
+  
+                  total_lines_valid += package_lines_valid
+                  total_lines_covered += package_lines_covered
+                  total_branches_valid += package_branches_valid
+                  total_branches_covered += package_branches_covered
+  
+          if not kept_any:
+              raise SystemExit(
+                  f"No classes found with filename prefix {wanted_prefix!r}"
+              )
+  
+          for child in list(root):
+              if child.tag == "packages":
+                  root.remove(child)
+  
+          root.append(new_packages)
+  
+          root.set("lines-valid", str(total_lines_valid))
+          root.set("lines-covered", str(total_lines_covered))
+          root.set(
+              "line-rate",
+              str(total_lines_covered / total_lines_valid if total_lines_valid else 0.0)
+          )
+          root.set("branches-valid", str(total_branches_valid or 1))
+          root.set("branches-covered", str(total_branches_covered or 1))
+          root.set(
+              "branch-rate",
+              str(
+                  total_branches_covered / total_branches_valid
+                  if total_branches_valid else 1.0
+              )
+          )
+  
+          tree.write(output_file, encoding="utf-8", xml_declaration=False)
+  
+          print(f"Wrote {output_file}")
+          print(f"lines-covered={total_lines_covered}")
+          print(f"lines-valid={total_lines_valid}")
+          print(f"line-rate={total_lines_covered / total_lines_valid if total_lines_valid else 0.0}")
+          PY
+
 
       - name: Inspect coverage.xml
         run: |
