@@ -78,11 +78,11 @@ jobs:
           echo "Wrote coverage.xml"
           wc -l coverage.xml || true
 
-      - name: Upload xcresult bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: PackageRunnerUITests-xcresult
-          path: Build/PackageRunnerUITests.xcresult
+      - name: Inspect coverage.xml
+        run: |
+          set -euo pipefail
+          sed -n '1,80p' coverage.xml
+          grep -n "Sources/ModelSettingViewModeling" coverage.xml | sed -n '1,20p' || true
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
@@ -91,4 +91,3 @@ jobs:
           files: coverage.xml
           fail_ci_if_error: true
           verbose: true
-
