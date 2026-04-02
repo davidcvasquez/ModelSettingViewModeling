@@ -65,16 +65,16 @@ jobs:
       - name: Convert xcresult to Cobertura XML
         run: |
           set -euo pipefail
-
+  
           brew install xcresultparser
-
+  
           xcresultparser \
             --output-format cobertura \
             --project-root "$GITHUB_WORKSPACE" \
-            -t ModelSettingViewModeling \
+            -t PackageRunner.app \
             Build/PackageRunnerUITests.xcresult \
             > coverage.xml
-
+  
           echo "Wrote coverage.xml"
           wc -l coverage.xml || true
 
