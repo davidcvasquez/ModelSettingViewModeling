@@ -58,53 +58,15 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             test
 
-      - name: Convert Xcode coverage to lcov
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          DERIVED_DATA="Build/DerivedData"
-          PRODUCTS_DIR="$DERIVED_DATA/Build/Products/Debug"
-
-          PROF_DATA="$(find "$DERIVED_DATA" -path '*/ProfileData/*/Coverage.profdata' -print -quit)"
-          if [[ -z "${PROF_DATA:-}" ]]; then
-            echo "Could not find Coverage.profdata"
-            find "$DERIVED_DATA" -maxdepth 6 -type f | sed -n '1,300p'
-            exit 1
-          fi
-          echo "PROF_DATA=$PROF_DATA"
-
-          APP_BIN="$PRODUCTS_DIR/PackageRunner.app/Contents/MacOS/PackageRunner"
-          if [[ ! -f "$APP_BIN" ]]; then
-            echo "Could not find app executable at $APP_BIN"
-            find "$PRODUCTS_DIR" -maxdepth 6 -type f | sed -n '1,300p'
-            exit 1
-          fi
-          echo "APP_BIN=$APP_BIN"
-
-          xcrun llvm-cov export \
-            -format="lcov" \
-            "$APP_BIN" \
-            -instr-profile "$PROF_DATA" \
-            > coverage.lcov
-
-          echo "Wrote coverage.lcov"
-          wc -l coverage.lcov || true
-
       - name: Show xcresult coverage summary
         run: |
           xcrun xccov view --report Build/PackageRunnerUITests.xcresult || true
-
-      - name: Upload xcresult bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: PackageRunnerUITests-xcresult
-          path: Build/PackageRunnerUITests.xcresult
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage.lcov
+          xcode: true
+          xcode_archive_path: Build/PackageRunnerUITests.xcresult
           fail_ci_if_error: true
           verbose: true
