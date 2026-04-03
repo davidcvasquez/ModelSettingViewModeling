@@ -171,7 +171,7 @@ jobs:
   
           if not kept_any:
               raise SystemExit(
-                  f"No classes found with filename prefix {wanted_prefix!r}"
+                  f"No classes found with filename prefix {wanted_fragment!r}"
               )
   
           for child in list(root):
