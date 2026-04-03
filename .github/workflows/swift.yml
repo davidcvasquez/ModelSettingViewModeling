@@ -61,12 +61,12 @@ jobs:
 
       - name: Show xcresult coverage summary
         run: |
-          xcrun xccov view --report Build/PackageRunnerUITests.xcresult || true
+          xcrun xccov view --archive --report Build/PackageRunnerUITests.xcresult || true
 
       - name: Dump covered files from xcresult
         run: |
           set -euo pipefail
-          xcrun xccov view --file-list Build/PackageRunnerUITests.xcresult | sed -n '1,300p'
+          xcrun xccov view --archive --file-list Build/PackageRunnerUITests.xcresult | sed -n '1,300p'
 
       - name: Convert xcresult to Cobertura XML
         run: |
