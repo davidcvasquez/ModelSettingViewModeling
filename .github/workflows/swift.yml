@@ -65,9 +65,9 @@ jobs:
 
       - name: Dump covered files from xcresult
         run: |
-        set -euo pipefail
-        xcrun xccov view --file-list Build/PackageRunnerUITests.xcresult | sed -n '1,300p'
-    
+          set -euo pipefail
+          xcrun xccov view --file-list Build/PackageRunnerUITests.xcresult | sed -n '1,300p'
+
       - name: Convert xcresult to Cobertura XML
         run: |
           set -euo pipefail
