@@ -31,8 +31,10 @@ final class PackageRunnerUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-uiTestCreateNewDocument"]
         app.launch()
-
-        XCTAssertTrue(app.windows.firstMatch.waitForExistence(timeout: 5))
+        print(app.debugDescription)
+        let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
+        XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
+        newDocumentButton.click()
     }
 
     func testLaunchPerformance() throws {

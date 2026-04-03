@@ -47,6 +47,7 @@ jobs:
           xcodebuild \
             -project PackageRunner/PackageRunner.xcodeproj \
             -scheme PackageRunner \
+            -testPlan PackageRunner \
             -destination 'platform=macOS' \
             -derivedDataPath Build/DerivedData \
             -resultBundlePath Build/PackageRunnerUITests.xcresult \
@@ -62,6 +63,11 @@ jobs:
         run: |
           xcrun xccov view --report Build/PackageRunnerUITests.xcresult || true
 
+      - name: Dump covered files from xcresult
+        run: |
+        set -euo pipefail
+        xcrun xccov view --file-list Build/PackageRunnerUITests.xcresult | sed -n '1,300p'
+    
       - name: Convert xcresult to Cobertura XML
         run: |
           set -euo pipefail
@@ -77,6 +83,11 @@ jobs:
           echo "Wrote coverage-full.xml"
           wc -l coverage-full.xml || true
 
+      - name: Inspect raw coverage filenames
+        run: |
+          set -euo pipefail
+          grep -o 'filename="[^"]*"' coverage-full.xml | sed 's/^filename="//; s/"$//' | sort -u | sed -n '1,200p'
+
       - name: Filter coverage to ModelSettingViewModeling package only
         run: |
           set -euo pipefail
@@ -86,7 +97,7 @@ jobs:
   
           input_file = "coverage-full.xml"
           output_file = "coverage.xml"
-          wanted_fragment = "/Sources/ModelSettingViewModeling/"
+          wanted_fragment = "Sources/ModelSettingViewModeling/"
   
           tree = ET.parse(input_file)
           root = tree.getroot()
@@ -204,12 +215,18 @@ jobs:
           print(f"line-rate={total_lines_covered / total_lines_valid if total_lines_valid else 0.0}")
           PY
 
-
       - name: Inspect coverage.xml
         run: |
           set -euo pipefail
           sed -n '1,80p' coverage.xml
           grep -n "Sources/ModelSettingViewModeling" coverage.xml | sed -n '1,20p' || true
+
+
+      - name: Upload xcresult bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: PackageRunnerUITests-xcresult
+          path: Build/PackageRunnerUITests.xcresult
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5

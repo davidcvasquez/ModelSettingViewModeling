@@ -18,10 +18,6 @@ import OSLog
 var initCount: Int = 0
 
 struct PackageRunnerApp: App {
-//#if os(macOS)
-//    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-//#endif
-
     @State private var localization: LocalizationRuntime
     @State private var layoutOptions: ModelSettingViewLayoutOptions
 
