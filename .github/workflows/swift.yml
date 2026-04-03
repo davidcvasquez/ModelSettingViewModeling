@@ -86,7 +86,7 @@ jobs:
   
           input_file = "coverage-full.xml"
           output_file = "coverage.xml"
-          wanted_prefix = "Sources/ModelSettingViewModeling/"
+          wanted_fragment = "/Sources/ModelSettingViewModeling/"
   
           tree = ET.parse(input_file)
           root = tree.getroot()
@@ -117,7 +117,8 @@ jobs:
   
               for cls in classes.findall("class"):
                   filename = cls.get("filename", "")
-                  if not filename.startswith(wanted_prefix):
+                  normalized = filename.replace("\\", "/")
+                  if wanted_fragment not in normalized:
                       continue
   
                   kept_any = True
