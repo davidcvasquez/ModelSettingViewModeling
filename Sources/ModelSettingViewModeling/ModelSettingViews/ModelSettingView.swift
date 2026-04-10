@@ -12,6 +12,7 @@
 import SwiftUI
 import CompactUUID
 import LocalizableStringBundle
+import ModelSettingViewModelingCore
 
 public protocol ViewModelComponentView: View {
     /// - Returns: The view model that manages this component.

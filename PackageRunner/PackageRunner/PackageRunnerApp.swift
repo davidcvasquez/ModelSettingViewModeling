@@ -10,8 +10,10 @@
 //===----------------------------------------------------------------------===//
 
 import SwiftUI
+import ModelSettingViewModelingCore
 import ModelSettingViewModeling
 import LocalizableStringBundle
+import LocalizableStringBundleUI
 import LoggerCategories
 import OSLog
 
@@ -26,13 +28,14 @@ struct PackageRunnerApp: App {
         Logger.debug("initCount: \(initCount)", LogCategory.general)
 
         self.localization = LocalizationRuntime()
-        self.layoutOptions = ModelSettingViewLayoutOptions()
+        self.layoutOptions = ModelSettingViewLayoutOptions(
+            prefs: ModelSettingViewLayoutOptionPrefs.self)
 
         self.registerPreferences()
 
         do {
-            try LocalizableStringBundle.Strings.install()
-            try ModelSettingViewModeling.Strings.install()
+            try LocalizableStringBundleUI.Strings.install()
+            try ModelSettingViewModelingCore.Strings.install()
             try SettingsStrings.install()
         } catch {
             Logger.debug("Install error: \(error)", LogCategory.localization)
@@ -75,7 +78,7 @@ private struct PackageRunnerUITestApp: App {
         self.registerPreferences()
 
         do {
-            try LocalizableStringBundle.Strings.install()
+            try LocalizableStringBundleUI.Strings.install()
             try ModelSettingViewModeling.Strings.install()
             try SettingsStrings.install()
         } catch {

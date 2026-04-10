@@ -9,7 +9,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-import SwiftUI
+import Foundation
 import LocalizableStringBundle
 import LoggerCategories
 import OSLog
@@ -17,7 +17,12 @@ import OSLog
 /// Shared UI layout options that are not specialized by ViewModel types.
 @Observable
 public class ModelSettingViewLayoutOptions {
-    public init(reorderSettings: Bool = false, enableRenaming: Bool = true) {
+    public init(
+        prefs: (any LayoutOptionPrefs.Type),
+        reorderSettings: Bool = false,
+        enableRenaming: Bool = true
+    ) {
+        self.prefs = prefs
         self.reorderSettings = reorderSettings
         self.enableRenaming = enableRenaming
     }
@@ -175,7 +180,7 @@ public class ModelSettingViewLayoutOptions {
         case expanded
         case custom
 
-        var displayName: LocalizationKey {
+        public var displayName: LocalizationKey {
             switch self {
             case .adaptive:
                 .adaptiveLabel
@@ -190,6 +195,22 @@ public class ModelSettingViewLayoutOptions {
                 .customLabel
             }
         }
+
+        public var accessibilityIdentifier: String {
+            switch self {
+            case .adaptive:
+                "layoutSize.adaptive"
+
+            case .compact:
+                "layoutSize.compact"
+
+            case .expanded:
+                "layoutSize.expanded"
+
+            case .custom:
+                "layoutSize.custom"
+            }
+        }
     }
 
     public var layoutSize: LayoutSizeOptions {
@@ -197,11 +218,11 @@ public class ModelSettingViewLayoutOptions {
             // Loading from prefs, so manually register that this property was read.
             access(keyPath: \.layoutSize)
 
-            return Preferences.layoutSize
+            return prefs.layoutSize
         }
         set {
             withMutation(keyPath: \.layoutSize) {
-                Preferences.layoutSize = newValue
+                prefs.layoutSize = newValue
             }
         }
     }
@@ -216,7 +237,7 @@ public class ModelSettingViewLayoutOptions {
         case showTextOnly
         case showIconAndText
 
-        var displayName: LocalizationKey {
+        public var displayName: LocalizationKey {
             switch self {
             case .showIconOnly:
                 .showIconOnlyLabel
@@ -228,11 +249,24 @@ public class ModelSettingViewLayoutOptions {
                 .showIconAndTextLabel
             }
         }
+
+        public var accessibilityIdentifier: String {
+            switch self {
+            case .showIconOnly:
+                "label.showIconOnly"
+
+            case .showTextOnly:
+                "label.showTextOnly"
+
+            case .showIconAndText:
+                "label.showIconAndText"
+            }
+        }
     }
 
     private var _labelOptions: LabelOptions {
-        get { Preferences.labels }
-        set { Preferences.labels = newValue }
+        get { prefs.labels }
+        set { prefs.labels = newValue }
     }
 
     public var labelOptions: LabelOptions {
@@ -275,7 +309,7 @@ public class ModelSettingViewLayoutOptions {
         case showTextFieldWithPopupControl
         case showTextFieldWithControl
 
-        var displayName: LocalizationKey {
+        public var displayName: LocalizationKey {
             switch self {
             case .showControlOnly:
                 .showControlOnlyLabel
@@ -290,11 +324,27 @@ public class ModelSettingViewLayoutOptions {
                 .showTextFieldWithControlLabel
             }
         }
+
+        public var accessibilityIdentifier: String {
+            switch self {
+            case .showControlOnly:
+                "controlOption.showControlOnly"
+
+            case .showTextFieldOnly:
+                "controlOption.showTextFieldOnly"
+
+            case .showTextFieldWithPopupControl:
+                "controlOption.showTextFieldWithPopupControl"
+
+            case .showTextFieldWithControl:
+                "controlOption.showTextFieldWithControl"
+            }
+        }
     }
 
     private var _controlOptions: ControlOptions {
-        get { Preferences.controls }
-        set { Preferences.controls = newValue }
+        get { prefs.controls }
+        set { prefs.controls = newValue }
     }
     public var controlOptions: ControlOptions {
         get {
@@ -326,66 +376,6 @@ public class ModelSettingViewLayoutOptions {
         self.controlOptions == .showTextFieldWithControl
     }
 
-    public var popupButtonSymbolName: String {
-        "chevron.down"
-    }
-
-    public var popupButtonCornerRadius: CGFloat {
-        6.0
-    }
-
-    public var popupButtonFont: Font {
-        .system(size: 14, weight: .semibold)
-    }
-
-    /// - Returns: The frame size of the popup button in pixels.
-    public var popupButtonFrameSize: CGFloat {
-#if os(iOS)
-        30.0
-#endif
-#if os(macOS)
-        24.0
-#endif
-    }
-
-    /// - Returns: The symbol color of the popup button.
-    public func popupButtonSymbolColor(isPopupOpen: Bool) -> Color {
-        isPopupOpen ? .white.opacity(0.85) : .primary
-    }
-
-    /// - Returns: The background color of the popup button.
-    public func popupButtonBackgroundColor(isPopupOpen: Bool, colorScheme: ColorScheme) -> Color {
-#if os(iOS)
-        isPopupOpen ? Color.accentColor.opacity(0.85) : Color.gray.opacity(0.33)
-#endif
-#if os(macOS)
-        if colorScheme == .dark {
-            return isPopupOpen ? Color.accentColor.opacity(0.85) : Color.black.opacity(0.20)
-        }
-        else {
-            return isPopupOpen ? Color.accentColor.opacity(0.85) : Color.white.opacity(0.75)
-        }
-#endif
-    }
-
-    public var popupSliderContentSize: CGSize {
-#if os(macOS)
-        CGSize(width: 280, height: 32)
-#endif
-#if os(iOS)
-        CGSize(width: 280, height: 48)
-#endif
-    }
-
-    public var popupDialContentSize: CGSize {
-#if os(macOS)
-        CGSize(width: 64, height: 64)
-#endif
-#if os(iOS)
-        CGSize(width: 72, height: 72)
-#endif
-    }
-
     public var showTextFields: Bool {
         self.controlOptions != .showControlOnly
     }
@@ -396,7 +386,7 @@ public class ModelSettingViewLayoutOptions {
         case smallStepper
         case largeStepper
 
-        var displayName: LocalizationKey {
+        public var displayName: LocalizationKey {
             switch self {
             case .noStepper:
                 .noStepperLabel
@@ -408,11 +398,24 @@ public class ModelSettingViewLayoutOptions {
                 .largeStepperLabel
             }
         }
+
+        public var accessibilityIdentifier: String {
+            switch self {
+            case .noStepper:
+                "stepperOption.noStepper"
+
+            case .smallStepper:
+                "stepperOption.smallStepper"
+
+            case .largeStepper:
+                "stepperOption.largeStepper"
+            }
+        }
     }
 
     private var _stepperOptions: StepperOptions {
-        get { Preferences.steppers }
-        set { Preferences.steppers = newValue }
+        get { prefs.steppers }
+        set { prefs.steppers = newValue }
     }
     public var stepperOptions: StepperOptions {
         get {
@@ -462,44 +465,19 @@ public class ModelSettingViewLayoutOptions {
         }
     }
 
-    public var sliderEdgeInsets: EdgeInsets {
-        EdgeInsets(top: self.showLabelText ? 19.0 : 0,
-                   leading: 0, bottom: 0, trailing: 0)
-    }
+    public var prefs: (any LayoutOptionPrefs.Type)
+}
 
-    struct Preferences {
-#if os(macOS)
-        static let defaultLayoutSize: LayoutSizeOptions = .custom
-#else
-        static let defaultLayoutSize: LayoutSizeOptions = .compact
-#endif
-        static let layoutSizePrefKey = "com.ModelSettingViewLayoutOptions.layoutSize"
-        @AppStorage(layoutSizePrefKey)
-        static var layoutSize: LayoutSizeOptions = defaultLayoutSize
+public protocol LayoutOptionPrefs {
+    static var layoutSize: ModelSettingViewLayoutOptions.LayoutSizeOptions { get set }
+    static var labels: ModelSettingViewLayoutOptions.LabelOptions { get set }
+    static var controls: ModelSettingViewLayoutOptions.ControlOptions { get set }
+    static var steppers: ModelSettingViewLayoutOptions.StepperOptions { get set }
+}
 
-        static let labelOptionsPrefKey = "com.ModelSettingViewLayoutOptions.labelOptions"
-        static let defaultLabelOptions: LabelOptions = .showIconAndText
-        @AppStorage(labelOptionsPrefKey)
-        static var labels: LabelOptions = defaultLabelOptions
-
-    #if os(macOS)
-        static let defaultControl: ControlOptions = .showTextFieldWithControl
-    #else
-        static let defaultControl: ControlOptions = .showTextFieldWithPopupControl
-    #endif
-
-        static let controlOptionsPrefKey = "com.ModelSettingViewLayoutOptions.controlOptions"
-        @AppStorage(controlOptionsPrefKey)
-        static var controls: ControlOptions = defaultControl
-
-    #if os(macOS)
-        static let defaultStepper: StepperOptions = .smallStepper
-    #else
-        static let defaultStepper: StepperOptions = .noStepper
-    #endif
-
-        static let stepperOptionsPrefKey = "com.ModelSettingViewLayoutOptions.stepperOptions"
-        @AppStorage(stepperOptionsPrefKey)
-        static var steppers: StepperOptions = defaultStepper
-    }
+public struct LayoutOptionsViewAccessibilityIDs {
+    public static var doneReorderingButtonAccessibilityIdentifier: String { "doneReorderingButton" }
+    public static var reorderButtonAccessibilityIdentifier: String { "reorderButton" }
+    public static var resetButtonAccessibilityIdentifier: String { "resetButton" }
+    public static var customizeSettingsButtonAccessibilityIdentifier: String { "customizeButton" }
 }

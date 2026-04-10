@@ -9,7 +9,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-import SwiftUI
+import Foundation
 import LocalizableStringBundle
 
 public enum SettingsStrings {

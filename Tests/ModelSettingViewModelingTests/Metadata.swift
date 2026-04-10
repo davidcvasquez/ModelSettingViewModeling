@@ -13,7 +13,7 @@ import SwiftUI
 import CompactUUID
 import NDGeometry
 
-struct Metadata: Codable, Identifiable {
+nonisolated struct Metadata: Codable, Identifiable {
     public var formatVersion: Int = latestFormatVersion
     public static let latestFormatVersion: Int = 1
 
@@ -46,7 +46,7 @@ struct Metadata: Codable, Identifiable {
     }
 }
 
-public extension NDSize {
+nonisolated public extension NDSize {
     static let printDPI = 300.0
 
     static let usLetterInches = NDSize(width: 8.5, height: 11.0)

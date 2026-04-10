@@ -10,6 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 import SwiftUI
+import ModelSettingViewModelingCore
 import ModelSettingViewModeling
 import OrderedCollections
 

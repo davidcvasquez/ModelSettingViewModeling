@@ -10,6 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 import XCTest
+import ModelSettingViewModelingCore
 
 final class PackageRunnerUITests: XCTestCase {
 
@@ -35,6 +36,60 @@ final class PackageRunnerUITests: XCTestCase {
         let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
         XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
         newDocumentButton.click()
+    }
+
+    func testNoStepperOption() throws {
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launchArguments += ["-uiTestCreateNewDocument"]
+        app.launch()
+        print(app.debugDescription)
+        let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
+        XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
+        newDocumentButton.click()
+
+//        let customizeButton = app.windows.menuButtons[LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier].firstMatch
+        let customizeButton = app.windows.menuButtons["customizeButton"].firstMatch
+        XCTAssertTrue(customizeButton.waitForExistence(timeout: 5))
+        customizeButton.click()
+
+//        let customLayoutButton = app.menuItems[ModelSettingViewLayoutOptions.LayoutSizeOptions.custom.accessibilityIdentifier].firstMatch
+        let customLayoutButton = app.menuItems["layoutSize.custom"].firstMatch
+        XCTAssertTrue(customLayoutButton.waitForExistence(timeout: 5))
+        customLayoutButton.click()
+
+        customizeButton.click()
+
+//        let noStepperButton = app.menuItems[ModelSettingViewLayoutOptions.StepperOptions.noStepper.accessibilityIdentifier].firstMatch
+        let noStepperButton = app.menuItems["stepperOption.noStepper"].firstMatch
+        XCTAssertTrue(noStepperButton.waitForExistence(timeout: 5))
+        noStepperButton.click()
+    }
+
+    func testLargeStepperOption() throws {
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launchArguments += ["-uiTestCreateNewDocument"]
+        app.launch()
+        print(app.debugDescription)
+        let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
+        XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
+        newDocumentButton.click()
+/*
+        let customizeButton = app.windows.menuButtons[LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier].firstMatch
+        XCTAssertTrue(customizeButton.waitForExistence(timeout: 5))
+        customizeButton.click()
+
+        let customLayoutButton = app.menuItems[ModelSettingViewLayoutOptions.LayoutSizeOptions.custom.accessibilityIdentifier].firstMatch
+        XCTAssertTrue(customLayoutButton.waitForExistence(timeout: 5))
+        customLayoutButton.click()
+
+        customizeButton.click()
+
+        let largeStepperButton = app.menuItems[ModelSettingViewLayoutOptions.StepperOptions.largeStepper.accessibilityIdentifier].firstMatch
+        XCTAssertTrue(largeStepperButton.waitForExistence(timeout: 5))
+        largeStepperButton.click()
+ */
     }
 
     func testLaunchPerformance() throws {

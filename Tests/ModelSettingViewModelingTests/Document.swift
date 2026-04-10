@@ -285,18 +285,22 @@ import LocalizableStringBundle
         self.undoManager = undoManager
     }
 
+    @MainActor
     public var canUndo: Bool {
         self.undoManager?.canUndo ?? false
     }
 
+    @MainActor
     public var canRedo: Bool {
         self.undoManager?.canRedo ?? false
     }
 
+    @MainActor
     public var undoActionName: String {
         self.undoManager?.undoActionName ?? ""
     }
 
+    @MainActor
     public var redoActionName: String {
         self.undoManager?.redoActionName ?? ""
     }

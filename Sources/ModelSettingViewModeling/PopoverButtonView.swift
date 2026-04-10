@@ -11,6 +11,8 @@
 
 import SwiftUI
 import LocalizableStringBundle
+import LocalizableStringBundleUI
+import ModelSettingViewModelingCore
 
 /// A popup button view.
 public struct PopoverButtonView: View {

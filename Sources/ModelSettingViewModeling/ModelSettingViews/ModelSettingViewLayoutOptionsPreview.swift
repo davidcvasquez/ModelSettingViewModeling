@@ -10,6 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 import SwiftUI
+import ModelSettingViewModelingCore
 
 public struct ModelSettingViewLayoutOptionsPreview<Content: View>: View {
     @State private var isEnabled: Bool = true

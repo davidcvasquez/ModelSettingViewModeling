@@ -12,6 +12,7 @@
 import SwiftUI
 import Observation
 import ModelSettingsSupport
+import ModelSettingViewModelingCore
 import ModelSettingViewModeling
 import OrderedCollections
 
@@ -104,7 +105,8 @@ public final class TestModelSettingViewModel: ModelSettingViewModel {
 
 
 #Preview("TestModelSettingViewModel") {
-    @Previewable @State var layoutOptions = ModelSettingViewLayoutOptions()
+    @Previewable @State var layoutOptions = ModelSettingViewLayoutOptions(
+        prefs: ModelSettingViewLayoutOptionPrefs.self)
     ModelSettingViewLayoutOptionsPreview(layoutOptions: layoutOptions) {
         let isTrackingInput: Binding<Bool> = .constant(false)
         let focusedID: Binding<ModelSetting.ID?> = .constant(nil)

@@ -13,6 +13,7 @@ import SwiftUI
 import NDGeometry
 import OrderedCollections
 import LocalizableStringBundle
+import ModelSettingViewModelingCore
 
 /// A SwiftUI Grid View of a collection of ModelSettingView subviews, coordinated by a ViewModel type.
 public struct ModelSettingGridView: View {

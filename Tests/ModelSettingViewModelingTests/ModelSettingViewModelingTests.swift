@@ -11,6 +11,8 @@
 
 import XCTest
 import LocalizableStringBundle
+import LocalizableStringBundleUI
+import ModelSettingViewModelingCore
 import ModelSettingViewModeling
 import ModelSettingsSupport
 
@@ -41,7 +43,7 @@ final class ModelSettingViewModelingTests: XCTestCase {
 
     @MainActor
     func testMakeViewModel() {
-        let layoutOptions = ModelSettingViewLayoutOptions()
+        let layoutOptions = ModelSettingViewLayoutOptions(prefs: ModelSettingViewLayoutOptionPrefs.self)
 
         do {
             try Self.installStrings()
@@ -71,8 +73,8 @@ final class ModelSettingViewModelingTests: XCTestCase {
 
     @MainActor
     private static func installStrings() throws {
-        try LocalizableStringBundle.Strings.install()
-        try ModelSettingViewModeling.Strings.install()
+        try LocalizableStringBundleUI.Strings.install()
+        try ModelSettingViewModelingCore.Strings.install()
         try Strings.install()
     }
 

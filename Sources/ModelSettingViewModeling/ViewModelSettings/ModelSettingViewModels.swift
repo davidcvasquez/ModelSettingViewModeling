@@ -13,6 +13,7 @@ import Foundation
 import OrderedCollections
 import LocalizableStringBundle
 import Observation
+import ModelSettingViewModelingCore
 
 /// A collection of view models for model settings.
 @Observable

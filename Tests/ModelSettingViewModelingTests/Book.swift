@@ -12,7 +12,7 @@
 import SwiftUI
 import CompactUUID
 
-struct Book: Codable, Identifiable {
+nonisolated struct Book: Codable, Identifiable {
     public var formatVersion: Int = latestFormatVersion
     public static let latestFormatVersion: Int = 1
 

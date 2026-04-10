@@ -11,6 +11,7 @@
 
 import SwiftUI
 import LocalizableStringBundle
+import ModelSettingViewModelingCore
 
 /// A view with layout options for model setting views, including adaptive, preset, or custom layout sizes.
 public struct ModelSettingViewLayoutOptionsView: View {
@@ -40,6 +41,8 @@ public struct ModelSettingViewLayoutOptionsView: View {
                 .buttonStyle(.plain)
                 .disabled(false)
                 .help("Done")
+                .accessibilityIdentifier(
+                    LayoutOptionsViewAccessibilityIDs.doneReorderingButtonAccessibilityIdentifier)
             }
             else {
                 Button {
@@ -49,6 +52,8 @@ public struct ModelSettingViewLayoutOptionsView: View {
                         .foregroundStyle(.tint)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier(
+                    LayoutOptionsViewAccessibilityIDs.reorderButtonAccessibilityIdentifier)
             }
 
             Menu {
@@ -59,12 +64,17 @@ public struct ModelSettingViewLayoutOptionsView: View {
                 } label: {
                     Label(.resetSettingsLabel, systemImage: "eraser")
                 }
+                .accessibilityIdentifier(
+                    LayoutOptionsViewAccessibilityIDs.resetButtonAccessibilityIdentifier)
 
                 Divider()
 
-                Picker(LocalizationKey.layoutLabel.resource, selection: $viewModels.layoutOptions.layoutSize) {
-                    ForEach(ModelSettingViewLayoutOptions.LayoutSizeOptions.allCases, id: \.self) { option in
+                Picker(LocalizationKey.layoutLabel.resource,
+                       selection: $viewModels.layoutOptions.layoutSize) {
+                    ForEach(ModelSettingViewLayoutOptions.LayoutSizeOptions.allCases,
+                            id: \.self) { option in
                         Text(option.displayName).tag(option)
+                            .accessibilityIdentifier(option.accessibilityIdentifier)
                     }
                 }
                 .pickerStyle(.inline)
@@ -73,8 +83,10 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.labelsLabel.resource,
                        selection: $viewModels.layoutOptions.labelOptions) {
-                    ForEach(ModelSettingViewLayoutOptions.LabelOptions.allCases, id: \.self) { option in
+                    ForEach(ModelSettingViewLayoutOptions.LabelOptions.allCases,
+                            id: \.self) { option in
                         Text(option.displayName).tag(option)
+                            .accessibilityIdentifier(option.accessibilityIdentifier)
                     }
                 }
                 .pickerStyle(.inline)
@@ -82,8 +94,10 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.controlsLabel.resource,
                        selection: $viewModels.layoutOptions.controlOptions) {
-                    ForEach(ModelSettingViewLayoutOptions.ControlOptions.allCases, id: \.self) { option in
+                    ForEach(ModelSettingViewLayoutOptions.ControlOptions.allCases,
+                            id: \.self) { option in
                         Text(option.displayName).tag(option)
+                            .accessibilityIdentifier(option.accessibilityIdentifier)
                     }
                 }
                 .pickerStyle(.inline)
@@ -91,8 +105,10 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.steppersLabel.resource,
                        selection: $viewModels.layoutOptions.stepperOptions) {
-                    ForEach(ModelSettingViewLayoutOptions.StepperOptions.allCases, id: \.self) { option in
+                    ForEach(ModelSettingViewLayoutOptions.StepperOptions.allCases,
+                            id: \.self) { option in
                         Text(option.displayName).tag(option)
+                            .accessibilityIdentifier(option.accessibilityIdentifier)
                     }
                 }
                 .pickerStyle(.inline)
@@ -108,6 +124,8 @@ public struct ModelSettingViewLayoutOptionsView: View {
             }
             .buttonStyle(.plain)
             .help("Customize Settings")
+            .accessibilityIdentifier(
+                LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier)
             .controlSize(.extraLarge)
             .padding([.horizontal, .vertical])
             .menuIndicator(.hidden)

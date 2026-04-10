@@ -9,7 +9,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-import SwiftUI
+import Foundation
 import OrderedCollections
 import CompactUUID
 import NDGeometry

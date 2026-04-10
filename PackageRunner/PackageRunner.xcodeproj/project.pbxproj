@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D7087ED72F7C6FC3008269BF /* ModelSettingViewModeling in Frameworks */ = {isa = PBXBuildFile; productRef = D7087ED62F7C6FC3008269BF /* ModelSettingViewModeling */; };
+		D708411E2F88CCF400E743B0 /* LocalizableStringBundle in Frameworks */ = {isa = PBXBuildFile; productRef = D708411D2F88CCF400E743B0 /* LocalizableStringBundle */; };
+		D70841202F88CCF400E743B0 /* LocalizableStringBundleUI in Frameworks */ = {isa = PBXBuildFile; productRef = D708411F2F88CCF400E743B0 /* LocalizableStringBundleUI */; };
 		D7087F102F7CCB5E008269BF /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F0F2F7CCB5E008269BF /* OrderedCollections */; };
 		D7087F132F7CCB8C008269BF /* CompactUUID in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F122F7CCB8C008269BF /* CompactUUID */; };
 		D7087F162F7CCBA9008269BF /* LoggerCategories in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F152F7CCBA9008269BF /* LoggerCategories */; };
 		D7087F192F7CCBC9008269BF /* NDGeometry in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F182F7CCBC9008269BF /* NDGeometry */; };
 		D7087F1C2F7CCBE7008269BF /* ModelSettingsSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F1B2F7CCBE7008269BF /* ModelSettingsSupport */; };
-		D7087F1F2F7CCC09008269BF /* LocalizableStringBundle in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F1E2F7CCC09008269BF /* LocalizableStringBundle */; };
+		D7A9D6172F86E64900ECD242 /* ModelSettingViewModeling in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9D6162F86E64900ECD242 /* ModelSettingViewModeling */; };
+		D7A9D6192F86E64900ECD242 /* ModelSettingViewModelingCore in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9D6182F86E64900ECD242 /* ModelSettingViewModelingCore */; };
+		D7F04FF72F871FD900D7964B /* ModelSettingViewModeling in Frameworks */ = {isa = PBXBuildFile; productRef = D7087ED62F7C6FC3008269BF /* ModelSettingViewModeling */; };
+		D7F050302F88BE6600D7964B /* LocalizableStringBundle in Frameworks */ = {isa = PBXBuildFile; productRef = D7F0502F2F88BE6600D7964B /* LocalizableStringBundle */; };
+		D7F0506B2F88C32D00D7964B /* LocalizableStringBundleUI in Frameworks */ = {isa = PBXBuildFile; productRef = D7F0506A2F88C32D00D7964B /* LocalizableStringBundleUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +42,7 @@
 		D7087EAB2F7C6F4B008269BF /* PackageRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PackageRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7087EB82F7C6F4B008269BF /* PackageRunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PackageRunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7087EC22F7C6F4B008269BF /* PackageRunnerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PackageRunnerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7BF65832F7F5B0A00262B62 /* PackageRunner.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = PackageRunner.xctestplan; sourceTree = "<group>"; };
+		D7BF65832F7F5B0A00262B62 /* PackageRunner.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PackageRunner.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -76,12 +81,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D708411E2F88CCF400E743B0 /* LocalizableStringBundle in Frameworks */,
+				D7F04FF72F871FD900D7964B /* ModelSettingViewModeling in Frameworks */,
+				D7A9D6192F86E64900ECD242 /* ModelSettingViewModelingCore in Frameworks */,
+				D7F0506B2F88C32D00D7964B /* LocalizableStringBundleUI in Frameworks */,
 				D7087F132F7CCB8C008269BF /* CompactUUID in Frameworks */,
+				D7F050302F88BE6600D7964B /* LocalizableStringBundle in Frameworks */,
+				D70841202F88CCF400E743B0 /* LocalizableStringBundleUI in Frameworks */,
+				D7A9D6172F86E64900ECD242 /* ModelSettingViewModeling in Frameworks */,
 				D7087F192F7CCBC9008269BF /* NDGeometry in Frameworks */,
 				D7087F102F7CCB5E008269BF /* OrderedCollections in Frameworks */,
 				D7087F162F7CCBA9008269BF /* LoggerCategories in Frameworks */,
-				D7087F1F2F7CCC09008269BF /* LocalizableStringBundle in Frameworks */,
-				D7087ED72F7C6FC3008269BF /* ModelSettingViewModeling in Frameworks */,
 				D7087F1C2F7CCBE7008269BF /* ModelSettingsSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,7 +160,12 @@
 				D7087F152F7CCBA9008269BF /* LoggerCategories */,
 				D7087F182F7CCBC9008269BF /* NDGeometry */,
 				D7087F1B2F7CCBE7008269BF /* ModelSettingsSupport */,
-				D7087F1E2F7CCC09008269BF /* LocalizableStringBundle */,
+				D7A9D6162F86E64900ECD242 /* ModelSettingViewModeling */,
+				D7A9D6182F86E64900ECD242 /* ModelSettingViewModelingCore */,
+				D7F0502F2F88BE6600D7964B /* LocalizableStringBundle */,
+				D7F0506A2F88C32D00D7964B /* LocalizableStringBundleUI */,
+				D708411D2F88CCF400E743B0 /* LocalizableStringBundle */,
+				D708411F2F88CCF400E743B0 /* LocalizableStringBundleUI */,
 			);
 			productName = PackageRunner;
 			productReference = D7087EAB2F7C6F4B008269BF /* PackageRunner.app */;
@@ -235,13 +250,13 @@
 			mainGroup = D7087EA22F7C6F4A008269BF;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				D7087ED52F7C6FC3008269BF /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */,
 				D7087F0E2F7CCB5E008269BF /* XCRemoteSwiftPackageReference "swift-collections" */,
 				D7087F112F7CCB8C008269BF /* XCRemoteSwiftPackageReference "CompactUUID" */,
 				D7087F142F7CCBA9008269BF /* XCRemoteSwiftPackageReference "LoggerCategories" */,
 				D7087F172F7CCBC9008269BF /* XCRemoteSwiftPackageReference "NDGeometry" */,
 				D7087F1A2F7CCBE7008269BF /* XCRemoteSwiftPackageReference "ModelSettingsSupport" */,
-				D7087F1D2F7CCC09008269BF /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */,
+				D7A9D6152F86E64900ECD242 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */,
+				D708411C2F88CCF400E743B0 /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7087EAC2F7C6F4B008269BF /* Products */;
@@ -673,13 +688,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D7087ED52F7C6FC3008269BF /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */ = {
+		D7A9D6152F86E64900ECD242 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../ModelSettingViewModeling;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D708411C2F88CCF400E743B0 /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davidcvasquez/LocalizableStringBundle.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 		D7087F0E2F7CCB5E008269BF /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -720,17 +743,19 @@
 				minimumVersion = 1.3.0;
 			};
 		};
-		D7087F1D2F7CCC09008269BF /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/davidcvasquez/LocalizableStringBundle.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D708411D2F88CCF400E743B0 /* LocalizableStringBundle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D708411C2F88CCF400E743B0 /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */;
+			productName = LocalizableStringBundle;
+		};
+		D708411F2F88CCF400E743B0 /* LocalizableStringBundleUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D708411C2F88CCF400E743B0 /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */;
+			productName = LocalizableStringBundleUI;
+		};
 		D7087ED62F7C6FC3008269BF /* ModelSettingViewModeling */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ModelSettingViewModeling;
@@ -760,10 +785,21 @@
 			package = D7087F1A2F7CCBE7008269BF /* XCRemoteSwiftPackageReference "ModelSettingsSupport" */;
 			productName = ModelSettingsSupport;
 		};
-		D7087F1E2F7CCC09008269BF /* LocalizableStringBundle */ = {
+		D7A9D6162F86E64900ECD242 /* ModelSettingViewModeling */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D7087F1D2F7CCC09008269BF /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */;
+			productName = ModelSettingViewModeling;
+		};
+		D7A9D6182F86E64900ECD242 /* ModelSettingViewModelingCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ModelSettingViewModelingCore;
+		};
+		D7F0502F2F88BE6600D7964B /* LocalizableStringBundle */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = LocalizableStringBundle;
+		};
+		D7F0506A2F88C32D00D7964B /* LocalizableStringBundleUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocalizableStringBundleUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

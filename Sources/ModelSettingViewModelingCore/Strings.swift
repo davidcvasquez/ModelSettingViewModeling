@@ -9,7 +9,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-import SwiftUI
 import LocalizableStringBundle
 
 public enum Strings {

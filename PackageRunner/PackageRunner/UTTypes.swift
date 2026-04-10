@@ -11,23 +11,23 @@
 
 import UniformTypeIdentifiers
 
-extension UTType {
-    static var exportedDocument = UTType(
+nonisolated extension UTType {
+    static let exportedDocument = UTType(
         exportedAs: "com.davidcvasquez.test", conformingTo: .package)
 
-    static var importedDocument = UTType(
+    static let importedDocument = UTType(
         importedAs: "com.davidcvasquez.test", conformingTo: .package)
 
-    static var exportedBook = UTType(
+    static let exportedBook = UTType(
         exportedAs: "com.davidcvasquez.book", conformingTo: .json)
 
-    static var importedBook = UTType(
+    static let importedBook = UTType(
         importedAs: "com.davidcvasquez.book", conformingTo: .json)
 
-    static var exportedMetadata = UTType(
+    static let exportedMetadata = UTType(
         exportedAs: "com.davidcvasquez.metadata", conformingTo: .json)
 
-    static var importedMetadata = UTType(
+    static let importedMetadata = UTType(
         importedAs: "com.davidcvasquez.metadata", conformingTo: .json)
 }
 

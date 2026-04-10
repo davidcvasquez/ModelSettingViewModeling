@@ -10,10 +10,12 @@
 
 
 # Xcode user data and build output (anywhere)
+/Build
 DerivedData/
 xcuserdata/
 *.xcuserstate
 *.xcbkptlist
+*.xcbaseline
 
 .netrc
 
