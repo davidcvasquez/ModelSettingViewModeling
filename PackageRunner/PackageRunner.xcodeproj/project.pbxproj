@@ -14,6 +14,9 @@
 		D7087F162F7CCBA9008269BF /* LoggerCategories in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F152F7CCBA9008269BF /* LoggerCategories */; };
 		D7087F192F7CCBC9008269BF /* NDGeometry in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F182F7CCBC9008269BF /* NDGeometry */; };
 		D7087F1C2F7CCBE7008269BF /* ModelSettingsSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D7087F1B2F7CCBE7008269BF /* ModelSettingsSupport */; };
+		D73C80DC2F8CD79B004EBB94 /* ModelSettingViewModeling in Frameworks */ = {isa = PBXBuildFile; productRef = D73C80DB2F8CD79B004EBB94 /* ModelSettingViewModeling */; };
+		D73C80DE2F8CD79B004EBB94 /* ModelSettingViewModelingCore in Frameworks */ = {isa = PBXBuildFile; productRef = D73C80DD2F8CD79B004EBB94 /* ModelSettingViewModelingCore */; };
+		D73C80E02F8CD7B6004EBB94 /* ModelSettingViewModelingCore in Frameworks */ = {isa = PBXBuildFile; productRef = D73C80DF2F8CD7B6004EBB94 /* ModelSettingViewModelingCore */; };
 		D7A9D6172F86E64900ECD242 /* ModelSettingViewModeling in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9D6162F86E64900ECD242 /* ModelSettingViewModeling */; };
 		D7A9D6192F86E64900ECD242 /* ModelSettingViewModelingCore in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9D6182F86E64900ECD242 /* ModelSettingViewModelingCore */; };
 		D7F04FF72F871FD900D7964B /* ModelSettingViewModeling in Frameworks */ = {isa = PBXBuildFile; productRef = D7087ED62F7C6FC3008269BF /* ModelSettingViewModeling */; };
@@ -82,8 +85,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D708411E2F88CCF400E743B0 /* LocalizableStringBundle in Frameworks */,
+				D73C80DC2F8CD79B004EBB94 /* ModelSettingViewModeling in Frameworks */,
 				D7F04FF72F871FD900D7964B /* ModelSettingViewModeling in Frameworks */,
 				D7A9D6192F86E64900ECD242 /* ModelSettingViewModelingCore in Frameworks */,
+				D73C80DE2F8CD79B004EBB94 /* ModelSettingViewModelingCore in Frameworks */,
 				D7F0506B2F88C32D00D7964B /* LocalizableStringBundleUI in Frameworks */,
 				D7087F132F7CCB8C008269BF /* CompactUUID in Frameworks */,
 				D7F050302F88BE6600D7964B /* LocalizableStringBundle in Frameworks */,
@@ -107,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73C80E02F8CD7B6004EBB94 /* ModelSettingViewModelingCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +126,7 @@
 				D7087EAD2F7C6F4B008269BF /* PackageRunner */,
 				D7087EBB2F7C6F4B008269BF /* PackageRunnerTests */,
 				D7087EC52F7C6F4B008269BF /* PackageRunnerUITests */,
+				D7571C992F8CD4B7001BEB65 /* Frameworks */,
 				D7087EAC2F7C6F4B008269BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,6 +139,13 @@
 				D7087EC22F7C6F4B008269BF /* PackageRunnerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D7571C992F8CD4B7001BEB65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +180,8 @@
 				D7F0506A2F88C32D00D7964B /* LocalizableStringBundleUI */,
 				D708411D2F88CCF400E743B0 /* LocalizableStringBundle */,
 				D708411F2F88CCF400E743B0 /* LocalizableStringBundleUI */,
+				D73C80DB2F8CD79B004EBB94 /* ModelSettingViewModeling */,
+				D73C80DD2F8CD79B004EBB94 /* ModelSettingViewModelingCore */,
 			);
 			productName = PackageRunner;
 			productReference = D7087EAB2F7C6F4B008269BF /* PackageRunner.app */;
@@ -212,6 +228,7 @@
 			);
 			name = PackageRunnerUITests;
 			packageProductDependencies = (
+				D73C80DF2F8CD7B6004EBB94 /* ModelSettingViewModelingCore */,
 			);
 			productName = PackageRunnerUITests;
 			productReference = D7087EC22F7C6F4B008269BF /* PackageRunnerUITests.xctest */;
@@ -255,8 +272,8 @@
 				D7087F142F7CCBA9008269BF /* XCRemoteSwiftPackageReference "LoggerCategories" */,
 				D7087F172F7CCBC9008269BF /* XCRemoteSwiftPackageReference "NDGeometry" */,
 				D7087F1A2F7CCBE7008269BF /* XCRemoteSwiftPackageReference "ModelSettingsSupport" */,
-				D7A9D6152F86E64900ECD242 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */,
 				D708411C2F88CCF400E743B0 /* XCRemoteSwiftPackageReference "LocalizableStringBundle" */,
+				D73C80DA2F8CD79B004EBB94 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7087EAC2F7C6F4B008269BF /* Products */;
@@ -688,7 +705,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D7A9D6152F86E64900ECD242 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */ = {
+		D73C80DA2F8CD79B004EBB94 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../ModelSettingViewModeling;
 		};
@@ -784,6 +801,19 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7087F1A2F7CCBE7008269BF /* XCRemoteSwiftPackageReference "ModelSettingsSupport" */;
 			productName = ModelSettingsSupport;
+		};
+		D73C80DB2F8CD79B004EBB94 /* ModelSettingViewModeling */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ModelSettingViewModeling;
+		};
+		D73C80DD2F8CD79B004EBB94 /* ModelSettingViewModelingCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ModelSettingViewModelingCore;
+		};
+		D73C80DF2F8CD7B6004EBB94 /* ModelSettingViewModelingCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D73C80DA2F8CD79B004EBB94 /* XCLocalSwiftPackageReference "../../ModelSettingViewModeling" */;
+			productName = ModelSettingViewModelingCore;
 		};
 		D7A9D6162F86E64900ECD242 /* ModelSettingViewModeling */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -84,40 +84,40 @@ public extension ModelSettingViewLayoutOptions {
 
 public struct ModelSettingViewLayoutOptionPrefs: LayoutOptionPrefs {
 #if os(macOS)
-    public static let defaultLayoutSize: ModelSettingViewLayoutOptions.LayoutSizeOptions = .custom
+    public static let defaultLayoutSize: LayoutSizeOptions = .custom
 #else
-    public static let defaultLayoutSize: ModelSettingViewLayoutOptions.LayoutSizeOptions = .compact
+    public static let defaultLayoutSize: LayoutSizeOptions = .compact
 #endif
     public static let layoutSizePrefKey = "com.ModelSettingViewLayoutOptions.layoutSize"
 
     @AppStorage(layoutSizePrefKey)
-    public static var layoutSize: ModelSettingViewLayoutOptions.LayoutSizeOptions = defaultLayoutSize
+    public static var layoutSize: LayoutSizeOptions = defaultLayoutSize
 
     public static let labelOptionsPrefKey = "com.ModelSettingViewLayoutOptions.labelOptions"
-    public static let defaultLabelOptions: ModelSettingViewLayoutOptions.LabelOptions = .showIconAndText
+    public static let defaultLabelOptions: LabelOptions = .showIconAndText
 
     @AppStorage(labelOptionsPrefKey)
-    public static var labels: ModelSettingViewLayoutOptions.LabelOptions = defaultLabelOptions
+    public static var labels: LabelOptions = defaultLabelOptions
 
 #if os(macOS)
-    public static let defaultControl: ModelSettingViewLayoutOptions.ControlOptions = .showTextFieldWithControl
+    public static let defaultControl: ControlOptions = .showTextFieldWithControl
 #else
-    public static let defaultControl: ModelSettingViewLayoutOptions.ControlOptions = .showTextFieldWithPopupControl
+    public static let defaultControl: ControlOptions = .showTextFieldWithPopupControl
 #endif
 
     public static let controlOptionsPrefKey = "com.ModelSettingViewLayoutOptions.controlOptions"
 
     @AppStorage(controlOptionsPrefKey)
-    public static var controls: ModelSettingViewLayoutOptions.ControlOptions = defaultControl
+    public static var controls: ControlOptions = defaultControl
 
 #if os(macOS)
-    public static let defaultStepper: ModelSettingViewLayoutOptions.StepperOptions = .smallStepper
+    public static let defaultStepper: StepperOptions = .smallStepper
 #else
-    public static let defaultStepper: ModelSettingViewLayoutOptions.StepperOptions = .noStepper
+    public static let defaultStepper: StepperOptions = .noStepper
 #endif
 
     public static let stepperOptionsPrefKey = "com.ModelSettingViewLayoutOptions.stepperOptions"
 
     @AppStorage(stepperOptionsPrefKey)
-    public static var steppers: ModelSettingViewLayoutOptions.StepperOptions = defaultStepper
+    public static var steppers: StepperOptions = defaultStepper
 }

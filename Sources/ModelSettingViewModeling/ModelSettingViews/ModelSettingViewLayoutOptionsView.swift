@@ -71,7 +71,7 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.layoutLabel.resource,
                        selection: $viewModels.layoutOptions.layoutSize) {
-                    ForEach(ModelSettingViewLayoutOptions.LayoutSizeOptions.allCases,
+                    ForEach(LayoutSizeOptions.allCases,
                             id: \.self) { option in
                         Text(option.displayName).tag(option)
                             .accessibilityIdentifier(option.accessibilityIdentifier)
@@ -83,7 +83,7 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.labelsLabel.resource,
                        selection: $viewModels.layoutOptions.labelOptions) {
-                    ForEach(ModelSettingViewLayoutOptions.LabelOptions.allCases,
+                    ForEach(LabelOptions.allCases,
                             id: \.self) { option in
                         Text(option.displayName).tag(option)
                             .accessibilityIdentifier(option.accessibilityIdentifier)
@@ -94,7 +94,7 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.controlsLabel.resource,
                        selection: $viewModels.layoutOptions.controlOptions) {
-                    ForEach(ModelSettingViewLayoutOptions.ControlOptions.allCases,
+                    ForEach(ControlOptions.allCases,
                             id: \.self) { option in
                         Text(option.displayName).tag(option)
                             .accessibilityIdentifier(option.accessibilityIdentifier)
@@ -105,7 +105,7 @@ public struct ModelSettingViewLayoutOptionsView: View {
 
                 Picker(LocalizationKey.steppersLabel.resource,
                        selection: $viewModels.layoutOptions.stepperOptions) {
-                    ForEach(ModelSettingViewLayoutOptions.StepperOptions.allCases,
+                    ForEach(StepperOptions.allCases,
                             id: \.self) { option in
                         Text(option.displayName).tag(option)
                             .accessibilityIdentifier(option.accessibilityIdentifier)

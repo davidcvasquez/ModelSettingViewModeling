@@ -10,6 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 import Foundation
+import Observation
 import LocalizableStringBundle
 import LoggerCategories
 import OSLog
@@ -173,46 +174,6 @@ public class ModelSettingViewLayoutOptions {
         return width
     }
 
-    /// Options for the size of the settings layout.
-    public enum LayoutSizeOptions: String, Codable, CaseIterable {
-        case adaptive
-        case compact
-        case expanded
-        case custom
-
-        public var displayName: LocalizationKey {
-            switch self {
-            case .adaptive:
-                .adaptiveLabel
-
-            case .compact:
-                .compactLabel
-
-            case .expanded:
-                .expandedLabel
-
-            case .custom:
-                .customLabel
-            }
-        }
-
-        public var accessibilityIdentifier: String {
-            switch self {
-            case .adaptive:
-                "layoutSize.adaptive"
-
-            case .compact:
-                "layoutSize.compact"
-
-            case .expanded:
-                "layoutSize.expanded"
-
-            case .custom:
-                "layoutSize.custom"
-            }
-        }
-    }
-
     public var layoutSize: LayoutSizeOptions {
         get {
             // Loading from prefs, so manually register that this property was read.
@@ -229,39 +190,6 @@ public class ModelSettingViewLayoutOptions {
 
     public var isFixedSizeLayout: Bool {
         layoutSize == .compact || layoutSize == .expanded
-    }
-
-    /// Options for the visibility of label icons and text.
-    public enum LabelOptions: String, Codable, CaseIterable {
-        case showIconOnly
-        case showTextOnly
-        case showIconAndText
-
-        public var displayName: LocalizationKey {
-            switch self {
-            case .showIconOnly:
-                .showIconOnlyLabel
-
-            case .showTextOnly:
-                .showTextOnlyLabel
-
-            case .showIconAndText:
-                .showIconAndTextLabel
-            }
-        }
-
-        public var accessibilityIdentifier: String {
-            switch self {
-            case .showIconOnly:
-                "label.showIconOnly"
-
-            case .showTextOnly:
-                "label.showTextOnly"
-
-            case .showIconAndText:
-                "label.showIconAndText"
-            }
-        }
     }
 
     private var _labelOptions: LabelOptions {
@@ -302,46 +230,6 @@ public class ModelSettingViewLayoutOptions {
         labelOptions == .showTextOnly || labelOptions == .showIconAndText
     }
 
-    /// Options for the visibility of the main control and its text field.
-    public enum ControlOptions: String, Codable, CaseIterable {
-        case showControlOnly
-        case showTextFieldOnly
-        case showTextFieldWithPopupControl
-        case showTextFieldWithControl
-
-        public var displayName: LocalizationKey {
-            switch self {
-            case .showControlOnly:
-                .showControlOnlyLabel
-
-            case .showTextFieldOnly:
-                .showTextFieldOnlyLabel
-
-            case .showTextFieldWithPopupControl:
-                .showTextFieldWithPopupControlLabel
-
-            case .showTextFieldWithControl:
-                .showTextFieldWithControlLabel
-            }
-        }
-
-        public var accessibilityIdentifier: String {
-            switch self {
-            case .showControlOnly:
-                "controlOption.showControlOnly"
-
-            case .showTextFieldOnly:
-                "controlOption.showTextFieldOnly"
-
-            case .showTextFieldWithPopupControl:
-                "controlOption.showTextFieldWithPopupControl"
-
-            case .showTextFieldWithControl:
-                "controlOption.showTextFieldWithControl"
-            }
-        }
-    }
-
     private var _controlOptions: ControlOptions {
         get { prefs.controls }
         set { prefs.controls = newValue }
@@ -378,39 +266,6 @@ public class ModelSettingViewLayoutOptions {
 
     public var showTextFields: Bool {
         self.controlOptions != .showControlOnly
-    }
-
-    /// Options for whether a stepper is present, and its size.
-    public enum StepperOptions: String, Codable, CaseIterable {
-        case noStepper
-        case smallStepper
-        case largeStepper
-
-        public var displayName: LocalizationKey {
-            switch self {
-            case .noStepper:
-                .noStepperLabel
-
-            case .smallStepper:
-                .smallStepperLabel
-
-            case .largeStepper:
-                .largeStepperLabel
-            }
-        }
-
-        public var accessibilityIdentifier: String {
-            switch self {
-            case .noStepper:
-                "stepperOption.noStepper"
-
-            case .smallStepper:
-                "stepperOption.smallStepper"
-
-            case .largeStepper:
-                "stepperOption.largeStepper"
-            }
-        }
     }
 
     private var _stepperOptions: StepperOptions {
@@ -468,11 +323,157 @@ public class ModelSettingViewLayoutOptions {
     public var prefs: (any LayoutOptionPrefs.Type)
 }
 
+/// Options for the size of the settings layout.
+public enum LayoutSizeOptions: String, Codable, CaseIterable {
+    case adaptive
+    case compact
+    case expanded
+    case custom
+
+    public var displayName: LocalizationKey {
+        switch self {
+        case .adaptive:
+            .adaptiveLabel
+
+        case .compact:
+            .compactLabel
+
+        case .expanded:
+            .expandedLabel
+
+        case .custom:
+            .customLabel
+        }
+    }
+
+    public var accessibilityIdentifier: String {
+        switch self {
+        case .adaptive:
+            "layoutSize.adaptive"
+
+        case .compact:
+            "layoutSize.compact"
+
+        case .expanded:
+            "layoutSize.expanded"
+
+        case .custom:
+            "layoutSize.custom"
+        }
+    }
+}
+
+/// Options for the visibility of label icons and text.
+public enum LabelOptions: String, Codable, CaseIterable {
+    case showIconOnly
+    case showTextOnly
+    case showIconAndText
+
+    public var displayName: LocalizationKey {
+        switch self {
+        case .showIconOnly:
+            .showIconOnlyLabel
+
+        case .showTextOnly:
+            .showTextOnlyLabel
+
+        case .showIconAndText:
+            .showIconAndTextLabel
+        }
+    }
+
+    public var accessibilityIdentifier: String {
+        switch self {
+        case .showIconOnly:
+            "label.showIconOnly"
+
+        case .showTextOnly:
+            "label.showTextOnly"
+
+        case .showIconAndText:
+            "label.showIconAndText"
+        }
+    }
+}
+
+/// Options for the visibility of the main control and its text field.
+public enum ControlOptions: String, Codable, CaseIterable {
+    case showControlOnly
+    case showTextFieldOnly
+    case showTextFieldWithPopupControl
+    case showTextFieldWithControl
+
+    public var displayName: LocalizationKey {
+        switch self {
+        case .showControlOnly:
+            .showControlOnlyLabel
+
+        case .showTextFieldOnly:
+            .showTextFieldOnlyLabel
+
+        case .showTextFieldWithPopupControl:
+            .showTextFieldWithPopupControlLabel
+
+        case .showTextFieldWithControl:
+            .showTextFieldWithControlLabel
+        }
+    }
+
+    public var accessibilityIdentifier: String {
+        switch self {
+        case .showControlOnly:
+            "controlOption.showControlOnly"
+
+        case .showTextFieldOnly:
+            "controlOption.showTextFieldOnly"
+
+        case .showTextFieldWithPopupControl:
+            "controlOption.showTextFieldWithPopupControl"
+
+        case .showTextFieldWithControl:
+            "controlOption.showTextFieldWithControl"
+        }
+    }
+}
+
+/// Options for whether a stepper is present, and its size.
+public enum StepperOptions: String, Codable, CaseIterable {
+    case noStepper
+    case smallStepper
+    case largeStepper
+
+    public var displayName: LocalizationKey {
+        switch self {
+        case .noStepper:
+            .noStepperLabel
+
+        case .smallStepper:
+            .smallStepperLabel
+
+        case .largeStepper:
+            .largeStepperLabel
+        }
+    }
+
+    public var accessibilityIdentifier: String {
+        switch self {
+        case .noStepper:
+            "stepperOption.none"
+
+        case .smallStepper:
+            "stepperOption.small"
+
+        case .largeStepper:
+            "stepperOption.large"
+        }
+    }
+}
+
 public protocol LayoutOptionPrefs {
-    static var layoutSize: ModelSettingViewLayoutOptions.LayoutSizeOptions { get set }
-    static var labels: ModelSettingViewLayoutOptions.LabelOptions { get set }
-    static var controls: ModelSettingViewLayoutOptions.ControlOptions { get set }
-    static var steppers: ModelSettingViewLayoutOptions.StepperOptions { get set }
+    static var layoutSize: LayoutSizeOptions { get set }
+    static var labels: LabelOptions { get set }
+    static var controls: ControlOptions { get set }
+    static var steppers: StepperOptions { get set }
 }
 
 public struct LayoutOptionsViewAccessibilityIDs {
