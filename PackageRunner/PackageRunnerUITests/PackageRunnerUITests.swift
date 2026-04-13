@@ -28,94 +28,143 @@ final class PackageRunnerUITests: XCTestCase {
     }
 
     func testNewUntitledDocument() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launchArguments += ["-uiTestCreateNewDocument"]
-        app.launch()
-        print(app.debugDescription)
-        let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
-        XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
-        newDocumentButton.click()
+        let _ = launchAppAndMakeNewDocument()
     }
 
+    // Layout Size options
+
+    func testAdaptiveLayoutOption() throws {
+        chooseLayoutSizeOption(.adaptive)
+    }
+
+    func testCompactLayoutOption() throws {
+        chooseLayoutSizeOption(.compact)
+    }
+
+    func testExpandedLayoutOption() throws {
+        chooseLayoutSizeOption(.expanded)
+    }
+
+    func testCustomLayoutOption() throws {
+        chooseLayoutSizeOption(.custom)
+    }
+
+    private func chooseLayoutSizeOption(_ option: LayoutSizeOptions) {
+        let app = launchAppAndOpenCustomLayout()
+        chooseMenuItem(option.accessibilityIdentifier, fromCustomizeMenuIn: app)
+    }
+
+    // Label options
+
+    func testIconOnlyLabelOption() throws {
+        chooseLabelOption(.showIconOnly)
+    }
+
+    func testTextOnlyLabelOption() throws {
+        chooseLabelOption(.showTextOnly)
+    }
+
+    func testIconAndTextLabelOption() throws {
+        chooseLabelOption(.showIconAndText)
+    }
+
+    private func chooseLabelOption(_ option: LabelOptions) {
+        let app = launchAppAndOpenCustomLayout()
+        chooseMenuItem(option.accessibilityIdentifier, fromCustomizeMenuIn: app)
+    }
+
+    // Control options
+
+    func testControlOnlyOption() throws {
+        chooseControlOption(.showControlOnly)
+    }
+
+    func testControlTextFieldOnly() throws {
+        chooseControlOption(.showTextFieldOnly)
+    }
+
+    func testControlTextFieldWithPopupControl() throws {
+        chooseControlOption(.showTextFieldWithPopupControl)
+    }
+
+    func testControlTextFieldWithControl() throws {
+        chooseControlOption(.showTextFieldWithControl)
+    }
+
+    private func chooseControlOption(_ option: ControlOptions) {
+        let app = launchAppAndOpenCustomLayout()
+        chooseMenuItem(option.accessibilityIdentifier, fromCustomizeMenuIn: app)
+    }
+
+    // Stepper options
+
     func testNoStepperOption() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launchArguments += ["-uiTestCreateNewDocument"]
-        app.launch()
-        print(app.debugDescription)
-        let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
-        XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
-        newDocumentButton.click()
-
-        let customizeButton = app.windows.menuButtons[
-            LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier].firstMatch
-        XCTAssertTrue(customizeButton.waitForExistence(timeout: 5))
-        customizeButton.click()
-
-        let customLayoutButton = app.menuItems[LayoutSizeOptions.custom.accessibilityIdentifier].firstMatch
-        XCTAssertTrue(customLayoutButton.waitForExistence(timeout: 5))
-        customLayoutButton.click()
-
-        customizeButton.click()
-
-        let noStepperButton = app.menuItems[StepperOptions.noStepper.accessibilityIdentifier].firstMatch
-        XCTAssertTrue(noStepperButton.waitForExistence(timeout: 5))
-        noStepperButton.click()
+        chooseStepperOption(.noStepper)
     }
 
     func testSmallStepperOption() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launchArguments += ["-uiTestCreateNewDocument"]
-        app.launch()
-        print(app.debugDescription)
-        let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
-        XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
-        newDocumentButton.click()
-
-        let customizeButton = app.windows.menuButtons[
-            LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier].firstMatch
-        XCTAssertTrue(customizeButton.waitForExistence(timeout: 5))
-        customizeButton.click()
-
-        let customLayoutButton = app.menuItems[LayoutSizeOptions.custom.accessibilityIdentifier].firstMatch
-        XCTAssertTrue(customLayoutButton.waitForExistence(timeout: 5))
-        customLayoutButton.click()
-
-        customizeButton.click()
-
-        let smallStepperButton = app.menuItems[StepperOptions.smallStepper.accessibilityIdentifier].firstMatch
-        XCTAssertTrue(smallStepperButton.waitForExistence(timeout: 5))
-        smallStepperButton.click()
+        chooseStepperOption(.smallStepper)
     }
 
     func testLargeStepperOption() throws {
-        // UI tests must launch the application that they test.
+        chooseStepperOption(.largeStepper)
+    }
+
+    private func chooseStepperOption(_ option: StepperOptions) {
+        let app = launchAppAndOpenCustomLayout()
+        chooseMenuItem(option.accessibilityIdentifier, fromCustomizeMenuIn: app)
+    }
+
+    // Helpers
+
+    private func launchAppAndOpenCustomLayout() -> XCUIApplication {
+        let app = launchAppAndMakeNewDocument()
+
+        let customizeButton = customizeMenuButton(in: app)
+        customizeButton.click()
+
+        let customLayoutButton = app.menuItems[
+            LayoutSizeOptions.custom.accessibilityIdentifier
+        ].firstMatch
+        XCTAssertTrue(customLayoutButton.waitForExistence(timeout: 5))
+        customLayoutButton.click()
+
+        return app
+    }
+
+    private func launchAppAndMakeNewDocument() -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-uiTestCreateNewDocument"]
         app.launch()
-        print(app.debugDescription)
+
         let newDocumentButton = app.windows.buttons["NewDocumentButton"].firstMatch
         XCTAssertTrue(newDocumentButton.waitForExistence(timeout: 5))
         newDocumentButton.click()
 
-        let customizeButton = app.windows.menuButtons[
-            LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier].firstMatch
-        XCTAssertTrue(customizeButton.waitForExistence(timeout: 5))
-        customizeButton.click()
-
-        let customLayoutButton = app.menuItems[LayoutSizeOptions.custom.accessibilityIdentifier].firstMatch
-        XCTAssertTrue(customLayoutButton.waitForExistence(timeout: 5))
-        customLayoutButton.click()
-
-        customizeButton.click()
-
-        let largeStepperButton = app.menuItems[StepperOptions.largeStepper.accessibilityIdentifier].firstMatch
-        XCTAssertTrue(largeStepperButton.waitForExistence(timeout: 5))
-        largeStepperButton.click()
+        return app
     }
 
+    private func chooseMenuItem(
+        _ accessibilityIdentifier: String,
+        fromCustomizeMenuIn app: XCUIApplication
+    ) {
+        let customizeButton = customizeMenuButton(in: app)
+        customizeButton.click()
+
+        let menuItem = app.menuItems[accessibilityIdentifier].firstMatch
+        XCTAssertTrue(menuItem.waitForExistence(timeout: 5))
+        menuItem.click()
+    }
+
+    private func customizeMenuButton(in app: XCUIApplication) -> XCUIElement {
+        let button = app.windows.menuButtons[
+            LayoutOptionsViewAccessibilityIDs.customizeSettingsButtonAccessibilityIdentifier
+        ].firstMatch
+        XCTAssertTrue(button.waitForExistence(timeout: 5))
+        return button
+    }
+
+    // Launch time
     func testLaunchPerformance() throws {
         let options = XCTMeasureOptions()
         options.iterationCount = 3
